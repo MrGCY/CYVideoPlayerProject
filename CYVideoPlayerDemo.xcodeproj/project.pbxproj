@@ -15,6 +15,9 @@
 		411A42AC1F5FE65600C1BEBB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 411A42AA1F5FE65600C1BEBB /* LaunchScreen.storyboard */; };
 		411A42B71F5FE65600C1BEBB /* CYVideoPlayerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42B61F5FE65600C1BEBB /* CYVideoPlayerDemoTests.m */; };
 		411A42C21F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42C11F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.m */; };
+		411A42D21F5FE6CF00C1BEBB /* CYVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D11F5FE6CF00C1BEBB /* CYVideoPlayerManager.m */; };
+		411A42D51F5FE6EE00C1BEBB /* CYVideoPlayerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */; };
+		411A42D81F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,12 @@
 		411A42BD1F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CYVideoPlayerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		411A42C11F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerDemoUITests.m; sourceTree = "<group>"; };
 		411A42C31F5FE65600C1BEBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		411A42D01F5FE6CF00C1BEBB /* CYVideoPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerManager.h; sourceTree = "<group>"; };
+		411A42D11F5FE6CF00C1BEBB /* CYVideoPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerManager.m; sourceTree = "<group>"; };
+		411A42D31F5FE6EE00C1BEBB /* CYVideoPlayerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerTool.h; sourceTree = "<group>"; };
+		411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerTool.m; sourceTree = "<group>"; };
+		411A42D61F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerResourceLoader.h; sourceTree = "<group>"; };
+		411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerResourceLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +110,7 @@
 		411A429B1F5FE65500C1BEBB /* CYVideoPlayerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				411A42CF1F5FE67A00C1BEBB /* CYVideoPlayer */,
 				411A429F1F5FE65600C1BEBB /* AppDelegate.h */,
 				411A42A01F5FE65600C1BEBB /* AppDelegate.m */,
 				411A42A21F5FE65600C1BEBB /* ViewController.h */,
@@ -138,6 +148,19 @@
 				411A42C31F5FE65600C1BEBB /* Info.plist */,
 			);
 			path = CYVideoPlayerDemoUITests;
+			sourceTree = "<group>";
+		};
+		411A42CF1F5FE67A00C1BEBB /* CYVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				411A42D01F5FE6CF00C1BEBB /* CYVideoPlayerManager.h */,
+				411A42D11F5FE6CF00C1BEBB /* CYVideoPlayerManager.m */,
+				411A42D31F5FE6EE00C1BEBB /* CYVideoPlayerTool.h */,
+				411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */,
+				411A42D61F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.h */,
+				411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */,
+			);
+			path = CYVideoPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,7 +296,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				411A42D21F5FE6CF00C1BEBB /* CYVideoPlayerManager.m in Sources */,
+				411A42D51F5FE6EE00C1BEBB /* CYVideoPlayerTool.m in Sources */,
 				411A42A41F5FE65600C1BEBB /* ViewController.m in Sources */,
+				411A42D81F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m in Sources */,
 				411A42A11F5FE65600C1BEBB /* AppDelegate.m in Sources */,
 				411A429E1F5FE65600C1BEBB /* main.m in Sources */,
 			);
