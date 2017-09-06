@@ -27,7 +27,7 @@ typedef NS_OPTIONS(NSInteger, CYVideoPlayerOptions) {
      * 视频按比例填充
      */
     CYVideoPlayerLayerVideoGravityResizeAspectFill = 1 << 9,
-
+    
 };
 @interface CYVideoPlayerManager : NSObject
 

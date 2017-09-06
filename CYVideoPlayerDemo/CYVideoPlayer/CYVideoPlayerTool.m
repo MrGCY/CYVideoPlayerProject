@@ -7,8 +7,8 @@
 //
 
 #import "CYVideoPlayerTool.h"
-#import "CYVideoPlayerManager.m"
-
+#import "CYVideoPlayerManager.h"
+#import "CYVideoPlayerResourceLoader.h"
 @interface CYVideoPlayerToolItem()
 /**
  * 视频播放的 URL
@@ -51,9 +51,9 @@
 @property(nonatomic, copy, nullable)CYVideoPlayerPlayToolErrorBlock error;
 
 /**
- * The resourceLoader for the videoPlayer.
+ * 视频资源缓存处理对象
  */
-@property(nonatomic, strong, nullable)JPVideoPlayerResourceLoader *resourceLoader;
+@property(nonatomic, strong, nullable)CYVideoPlayerResourceLoader * resourceLoader;
 
 /**
  * 选择模式
