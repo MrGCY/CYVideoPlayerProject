@@ -99,7 +99,6 @@
 - (nullable id <CYVideoPlayerOperation>)cy_loadVideoWithURL:(nullable NSURL *)url
                                                  showOnView:(nullable UIView *)showView
                                                     options:(CYVideoPlayerOptions)options
-                                            playingProgress:(CYVideoPlayerPlayToolPlayingProgressBlock _Nullable ) playProgress
                                            downloadProgress:(nullable CYVideoPlayerDownloaderProgressBlock)progressBlock
                                                   completed:(nullable CYVideoPlayerCompletionBlock)completedBlock{
     
@@ -145,7 +144,7 @@
     __weak typeof(showView) wShowView = showView;
     if (isFileURL) {
         //加载本地视频
-        id  backOperation = [self cy_loadLocalVideoWithURL:url showOnView:showView options:options playingProgress:playProgress completed:completedBlock combinedOperation:operation];
+        id  backOperation = [self cy_loadLocalVideoWithURL:url showOnView:showView options:options playingProgress:nil completed:completedBlock combinedOperation:operation];
         if (backOperation) {
             return backOperation;
         }
@@ -201,9 +200,9 @@
                                     //直接播放在线资源
                                     [[CYVideoPlayerTool sharedTool] playOnlineVideoWithURL:url tempVideoCachePath:tempVideoCachedPath options:options videoFileExceptSize:expectedSize videoFileReceivedSize:storedSize showOnView:sShowView playingProgress:^(CGFloat progress) {
                                         //播放进度
-                                        if (playProgress) {
-                                            playProgress(progress);
-                                        }
+//                                        if (playProgress) {
+//                                            playProgress(progress);
+//                                        }
                                     } error:^(NSError * _Nullable error) {
                                         if (error) {
                                             if (completedBlock) {
@@ -296,9 +295,9 @@
                     [[CYVideoPlayerTool sharedTool] playExistedVideoWithURL:url fullVideoCachePath:videoPath options:options showOnView:showView playingProgress:^(CGFloat progress) {
                         __strong typeof(wShowView) sShowView = wShowView;
                         if (!sShowView) return;
-                        if (playProgress) {
-                            playProgress(progress);
-                        }
+//                        if (playProgress) {
+//                            playProgress(progress);
+//                        }
                     } error:^(NSError * _Nullable error) {
                         if (completedBlock) {
                             completedBlock(nil, error, CYVideoPlayerCacheTypeLocation, url);
@@ -336,7 +335,9 @@
         [[CYVideoPlayerTool sharedTool] playExistedVideoWithURL:url fullVideoCachePath:path options:options showOnView:showView playingProgress:^(CGFloat progress) {
             __strong typeof(wShowView) sShowView = wShowView;
             if (!sShowView) return;
-            playProgress(progress);
+            if (playProgress) {
+                playProgress(progress);
+            }
         } error:^(NSError * _Nullable error) {
             if (completedBlock) {
                 completedBlock(nil, error, CYVideoPlayerCacheTypeLocation, url);

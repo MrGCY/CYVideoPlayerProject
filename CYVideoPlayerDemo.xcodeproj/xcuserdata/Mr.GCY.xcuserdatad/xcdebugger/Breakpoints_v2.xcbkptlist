@@ -9,14 +9,40 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CYVideoPlayerDemo/CYVideoPlayer/CYVideoPlayerManager.m"
-            timestampString = "526472466.888704"
+            filePath = "CYVideoPlayerDemo/CYVideoPlayer/CYVideoPlayerResourceLoader.m"
+            timestampString = "526477769.111005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "-cy_loadVideoWithURL:showOnView:options:playingProgress:downloadProgress:completed:"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-resourceLoader:shouldWaitForLoadingOfRequestedResource:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CYVideoPlayerDemo/CYVideoPlayer/CYVideoPlayerResourceLoader.m"
+            timestampString = "526477774.921112"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-resourceLoader:didCancelLoadingRequest:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

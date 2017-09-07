@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "JPVideoPlayerDemoVC_home.h"
+#import "JPVideoPlayerDemoVC_Setting.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +18,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    UINavigationController *nav_home = [[UINavigationController alloc]initWithRootViewController:[JPVideoPlayerDemoVC_home new]];
+    nav_home.tabBarItem.image = [[UIImage imageNamed:@"player"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav_home.tabBarItem.selectedImage = [[UIImage imageNamed:@"player_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav_home.title = @"Player";
+    
+    UINavigationController *nav_setting = [[UINavigationController alloc]initWithRootViewController:[JPVideoPlayerDemoVC_Setting new]];
+    nav_setting.tabBarItem.image = [[UIImage imageNamed:@"setting"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav_setting.tabBarItem.selectedImage = [[UIImage imageNamed:@"setting_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nav_setting.title = @"Setting";
+    
+    UITabBarController *tabVC = [[UITabBarController alloc]init];
+    tabVC.viewControllers = @[nav_home, nav_setting];
+    tabVC.tabBar.tintColor = [UIColor colorWithRed:64.0/255.0 green:146.0/255.0 blue:75.0/255.0 alpha:1];
+    
+    self.window.rootViewController = tabVC;
+    
+    [self.window makeKeyAndVisible];
+    
+    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     return YES;
 }
 

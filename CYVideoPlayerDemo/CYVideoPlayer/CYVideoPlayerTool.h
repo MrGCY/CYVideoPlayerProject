@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CYVideoPlayerManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
+#import "CYVideoPlayerManager.h"
 //视频资源管理类
 @interface CYVideoPlayerToolItem : NSObject
 /**
@@ -52,6 +52,12 @@
  @param error 返回错误信息
  */
 typedef void(^CYVideoPlayerPlayToolErrorBlock)(NSError * _Nullable error);
+/**
+ 播放进度block
+ 
+ @param progress 返回当前的播放进度
+ */
+typedef void(^CYVideoPlayerPlayToolPlayingProgressBlock)(CGFloat progress);
 
 
 //视频工具类

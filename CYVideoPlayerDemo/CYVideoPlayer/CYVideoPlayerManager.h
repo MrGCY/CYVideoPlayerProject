@@ -45,6 +45,15 @@ typedef NS_OPTIONS(NSInteger, CYVideoPlayerOptions) {
      * Useful for testing purposes. Use with caution in production.
      */
     CYVideoPlayerAllowInvalidSSLCertificates = 1 << 7,
+    /**
+     * Use this flag to display progress view when play video from web.
+     */
+    CYVideoPlayerShowProgressView = 1 << 8,
+    
+    /**
+     * Use this flag to display activity indicator view when video player is buffering.
+     */
+    CYVideoPlayerShowActivityIndicatorView = 1 << 9,
     
 };
 //播放状态的枚举
@@ -56,13 +65,6 @@ typedef NS_ENUM(NSInteger, CYVideoPlayerPlayingStatus) {
     CYVideoPlayerPlayingStatusFailed,//失败
     CYVideoPlayerPlayingStatusStop//停止
 };
-
-/**
- 播放进度block
- 
- @param progress 返回当前的播放进度
- */
-typedef void(^CYVideoPlayerPlayToolPlayingProgressBlock)(CGFloat progress);
 
 //视频缓存完成
 typedef void(^CYVideoPlayerCompletionBlock)(NSString * _Nullable fullVideoCachePath, NSError * _Nullable error, CYVideoPlayerCacheType cacheType, NSURL * _Nullable videoURL);
@@ -115,7 +117,6 @@ typedef void(^CYVideoPlayerCompletionBlock)(NSString * _Nullable fullVideoCacheP
 - (nullable id <CYVideoPlayerOperation>)cy_loadVideoWithURL:(nullable NSURL *)url
                                                  showOnView:(nullable UIView *)showView
                                                     options:(CYVideoPlayerOptions)options
-                                            playingProgress:(CYVideoPlayerPlayToolPlayingProgressBlock _Nullable ) playProgress
                                            downloadProgress:(nullable CYVideoPlayerDownloaderProgressBlock)progressBlock
                                                   completed:(nullable CYVideoPlayerCompletionBlock)completedBlock;
 /**
@@ -125,4 +126,35 @@ typedef void(^CYVideoPlayerCompletionBlock)(NSString * _Nullable fullVideoCacheP
  @return 返回对应的key
  */
 - (nullable NSString *)cacheKeyForURL:(nullable NSURL *)url;
+
+# pragma mark - Play Control
+
+/**
+ * Call this method to stop play video.
+ */
+- (void)stopPlay;
+
+/**
+ *  Call this method to pause play.
+ */
+- (void)pause;
+
+/**
+ *  Call this method to resume play.
+ */
+- (void)resume;
+
+/**
+ * Call this method to play or pause audio of current video.
+ *
+ * @param mute the audio status will change to.
+ */
+- (void)setPlayerMute:(BOOL)mute;
+
+/**
+ * Call this method to get the audio statu for current player.
+ *
+ * @return the audio status for current player.
+ */
+- (BOOL)playerIsMute;
 @end
