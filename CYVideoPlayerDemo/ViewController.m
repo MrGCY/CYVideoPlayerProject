@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CYVideoPlayerManager.h"
 
 @interface ViewController ()
 
@@ -16,7 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [[CYVideoPlayerManager sharedManager] cy_loadVideoWithURL:[NSURL URLWithString:@"http://120.25.226.186:32812/resources/videos/minion_01.mp4"] showOnView:self.view options:CYVideoPlayerContinueInBackground | CYVideoPlayerLayerVideoGravityResize playingProgress:nil downloadProgress:nil completed:^(NSString * _Nullable fullVideoCachePath, NSError * _Nullable error, CYVideoPlayerCacheType cacheType, NSURL * _Nullable videoURL) {
+        
+    }];
 }
 
 

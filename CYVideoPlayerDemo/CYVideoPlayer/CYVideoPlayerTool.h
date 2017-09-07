@@ -53,13 +53,6 @@
  */
 typedef void(^CYVideoPlayerPlayToolErrorBlock)(NSError * _Nullable error);
 
-/**
- 播放进度block
-
- @param progress 返回当前的播放进度
- */
-typedef void(^CYVideoPlayerPlayToolPlayingProgressBlock)(CGFloat progress);
-
 
 //视频工具类
 @interface CYVideoPlayerTool : NSObject

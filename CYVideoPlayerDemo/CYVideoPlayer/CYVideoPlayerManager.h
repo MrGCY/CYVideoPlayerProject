@@ -57,6 +57,12 @@ typedef NS_ENUM(NSInteger, CYVideoPlayerPlayingStatus) {
     CYVideoPlayerPlayingStatusStop//停止
 };
 
+/**
+ 播放进度block
+ 
+ @param progress 返回当前的播放进度
+ */
+typedef void(^CYVideoPlayerPlayToolPlayingProgressBlock)(CGFloat progress);
 
 //视频缓存完成
 typedef void(^CYVideoPlayerCompletionBlock)(NSString * _Nullable fullVideoCachePath, NSError * _Nullable error, CYVideoPlayerCacheType cacheType, NSURL * _Nullable videoURL);
@@ -106,6 +112,12 @@ typedef void(^CYVideoPlayerCompletionBlock)(NSString * _Nullable fullVideoCacheP
  创建播放器管理者单例对象
  */
 +(nonnull instancetype)sharedManager;
+- (nullable id <CYVideoPlayerOperation>)cy_loadVideoWithURL:(nullable NSURL *)url
+                                                 showOnView:(nullable UIView *)showView
+                                                    options:(CYVideoPlayerOptions)options
+                                            playingProgress:(CYVideoPlayerPlayToolPlayingProgressBlock _Nullable ) playProgress
+                                           downloadProgress:(nullable CYVideoPlayerDownloaderProgressBlock)progressBlock
+                                                  completed:(nullable CYVideoPlayerCompletionBlock)completedBlock;
 /**
  获取缓存视频的key
 

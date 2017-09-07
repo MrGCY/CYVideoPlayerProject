@@ -8,9 +8,8 @@
 
 #import "CYVideoPlayerManager.h"
 #import "CYVideoPlayerResourceLoader.h"
-#import "CYVideoPlayerTool.h"
 #import "CYVideoPlayerMacros.h"
-
+#import "CYVideoPlayerTool.h"
 //-------------------------联系下载缓存操作的类
 @interface CYVideoPlayerCombinedOperation : NSObject<CYVideoPlayerOperation>
 @property (assign, nonatomic, getter = isCancelled) BOOL cancelled;
@@ -202,7 +201,9 @@
                                     //直接播放在线资源
                                     [[CYVideoPlayerTool sharedTool] playOnlineVideoWithURL:url tempVideoCachePath:tempVideoCachedPath options:options videoFileExceptSize:expectedSize videoFileReceivedSize:storedSize showOnView:sShowView playingProgress:^(CGFloat progress) {
                                         //播放进度
-                                        playProgress(progress);
+                                        if (playProgress) {
+                                            playProgress(progress);
+                                        }
                                     } error:^(NSError * _Nullable error) {
                                         if (error) {
                                             if (completedBlock) {
@@ -263,7 +264,6 @@
                                 [self.failedURLs addObject:url];
                             }
                         }
-                        
                         [self cy_safelyRemoveOperationFromRunning:strongOperation];
                     }else{
                         //完成下载
@@ -296,7 +296,9 @@
                     [[CYVideoPlayerTool sharedTool] playExistedVideoWithURL:url fullVideoCachePath:videoPath options:options showOnView:showView playingProgress:^(CGFloat progress) {
                         __strong typeof(wShowView) sShowView = wShowView;
                         if (!sShowView) return;
-                        playProgress(progress);
+                        if (playProgress) {
+                            playProgress(progress);
+                        }
                     } error:^(NSError * _Nullable error) {
                         if (completedBlock) {
                             completedBlock(nil, error, CYVideoPlayerCacheTypeLocation, url);
