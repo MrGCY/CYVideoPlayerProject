@@ -25,6 +25,27 @@
 @end
 
 
+
+@class CYVideoPlayerTool;
+//协议代理
+@protocol CYVideoPlayerToolDelegate <NSObject>
+
+@optional
+
+/**
+ 是否重复播放视频
+ */
+- (BOOL)playVideoTool:(nonnull CYVideoPlayerTool *)videoTool shouldAutoReplayVideoForURL:(nonnull NSURL *)videoURL;
+
+/**
+视频播放的状态
+ */
+- (void)playVideoTool:(nonnull CYVideoPlayerTool *)videoTool playingStatuDidChanged:(CYVideoPlayerPlayingStatus)playingStatus;
+
+@end
+
+
+
 /**
  错误的block
 
@@ -42,14 +63,21 @@ typedef void(^CYVideoPlayerPlayToolPlayingProgressBlock)(CGFloat progress);
 
 //视频工具类
 @interface CYVideoPlayerTool : NSObject
-/**
- 创建播放器工具的单例对象
- */
-+(nonnull instancetype)sharedTool;
+
 /**
  * 当前播放的资源
  */
 @property(nonatomic, strong, readonly, nullable)CYVideoPlayerToolItem * currentPlayVideoItem;
+
+/**
+ 代理对象
+ */
+@property(nullable, nonatomic, weak)id<CYVideoPlayerToolDelegate> delegate;
+
+/**
+ 创建播放器工具的单例对象
+ */
++(nonnull instancetype)sharedTool;
 
 /**
  加载本地视频资源
@@ -89,4 +117,21 @@ typedef void(^CYVideoPlayerPlayToolPlayingProgressBlock)(CGFloat progress);
                                                 showOnView:(UIView * _Nullable)showView
                                            playingProgress:(CYVideoPlayerPlayToolPlayingProgressBlock _Nullable )progress
                                                      error:(nullable CYVideoPlayerPlayToolErrorBlock)error;
+/**
+ *视频缓存一半的处理
+ * @param tempCacheVideoPath 视频缓存在磁盘中的地址
+ * @param expectedSize       视频数据的总长度
+ * @param receivedSize       视频缓存磁盘中的长度
+ */
+- (void)didReceivedDataCacheInDiskByTempPath:(NSString * _Nonnull)tempCacheVideoPath videoFileExceptSize:(NSUInteger)expectedSize videoFileReceivedSize:(NSUInteger)receivedSize;
+
+/**
+ * 视频缓存完成的处理
+ * @param fullVideoCachePath 视频缓存在磁盘中的地址
+ */
+- (void)didCachedVideoDataFinishedFromWebFullVideoCachePath:(NSString * _Nullable)fullVideoCachePath;
+- (void)stopPlay;
+- (void)pause;
+- (void)resume;
+- (void)setMute:(BOOL)mute;
 @end

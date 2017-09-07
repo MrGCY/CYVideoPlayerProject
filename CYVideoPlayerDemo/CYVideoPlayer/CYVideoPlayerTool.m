@@ -9,6 +9,7 @@
 #import "CYVideoPlayerTool.h"
 #import "CYVideoPlayerResourceLoader.h"
 #import "UIView+VideoCacheOperation.h"
+#import "CYVideoPlayerDownloaderOperation.h"
 
 @interface CYVideoPlayerToolItem()
 /**
@@ -155,6 +156,7 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
 -(instancetype)init{
     if (self = [super init]) {
         _playVideoItems = [NSMutableArray arrayWithCapacity:0];
+        [self addObserverOnce];
     }
     return self;
 }
@@ -333,5 +335,199 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
     NSURLComponents *components = [[NSURLComponents alloc] initWithURL:[NSURL URLWithString:CYVideoPlayerURL] resolvingAgainstBaseURL:NO];
     components.scheme = CYVideoPlayerURLScheme;
     return [components URL];
+}
+
+- (void)didReceivedDataCacheInDiskByTempPath:(NSString * _Nonnull)tempCacheVideoPath videoFileExceptSize:(NSUInteger)expectedSize videoFileReceivedSize:(NSUInteger)receivedSize{
+    [self.currentPlayVideoItem.resourceLoader didReceivedDataCacheInDiskByTempPath:tempCacheVideoPath videoFileExceptSize:expectedSize videoFileReceivedSize:receivedSize];
+}
+
+- (void)didCachedVideoDataFinishedFromWebFullVideoCachePath:(NSString * _Nullable)fullVideoCachePath{
+    if (self.currentPlayVideoItem.resourceLoader) {
+        [self.currentPlayVideoItem.resourceLoader didCachedVideoDataFinishedFromWebFullVideoCachePath:fullVideoCachePath];
+    }
+}
+- (void)setMute:(BOOL)mute{
+    self.currentPlayVideoItem.player.muted = mute;
+}
+
+- (void)stopPlay{
+    self.currentPlayVideoItem = nil;
+    for (CYVideoPlayerToolItem *item in self.playVideoItems) {
+        [item stopPlayVideo];
+    }
+    @synchronized (self) {
+        if (self.playVideoItems)
+            [self.playVideoItems removeAllObjects];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+        [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusStop];
+    }
+}
+
+- (void)pause{
+    [self.currentPlayVideoItem pausePlayVideo];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+        [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPause];
+    }
+}
+
+- (void)resume{
+    [self.currentPlayVideoItem resumePlayVideo];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+        [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPlaying];
+    }
+}
+#pragma mark - App Observer
+
+- (void)addObserverOnce{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayGround) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidPlayToEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appReceivedMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startDownload) name:CYVideoPlayerDownloadStartNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedDownload) name:CYVideoPlayerDownloadFinishNotification object:nil];
+}
+
+- (void)appReceivedMemoryWarning{
+    [self.currentPlayVideoItem stopPlayVideo];
+}
+
+- (void)appDidEnterBackground{
+    [self.currentPlayVideoItem pausePlayVideo];
+    if (self.currentPlayVideoItem.unownShowView) {
+//        self.playingStatus_beforeEnterBackground = self.currentPlayVideoItem.unownShowView.playingStatus;
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+        [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPause];
+    }
+}
+
+- (void)appDidEnterPlayGround{
+    // fixed #35.
+    if (self.currentPlayVideoItem.unownShowView && (self.playingStatus_beforeEnterBackground == CYVideoPlayerPlayingStatusPlaying)) {
+        [self.currentPlayVideoItem resumePlayVideo];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+            [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPlaying];
+        }
+    }
+    else{
+        [self.currentPlayVideoItem pausePlayVideo];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+            [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPause];
+        }
+    }
+}
+#pragma mark - AVPlayer Observer
+
+- (void)playerItemDidPlayToEnd:(NSNotification *)notification{
+    
+    // ask need automatic replay or not.
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:shouldAutoReplayVideoForURL:)]) {
+        if (![self.delegate playVideoTool:self shouldAutoReplayVideoForURL:self.currentPlayVideoItem.url]) {
+            return;
+        }
+    }
+    
+    // Seek the start point of file data and repeat play, this handle have no memory surge.
+    __weak typeof(self.currentPlayVideoItem) weak_Item = self.currentPlayVideoItem;
+    [self.currentPlayVideoItem.player seekToTime:CMTimeMake(0, 1) completionHandler:^(BOOL finished) {
+        __strong typeof(weak_Item) strong_Item = weak_Item;
+        if (!strong_Item) return;
+        
+        self.currentPlayVideoItem.lastTime = 0;
+        [strong_Item.player play];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+            [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPlaying];
+        }
+    }];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"status"]) {
+        AVPlayerItem *playerItem = (AVPlayerItem *)object;
+        AVPlayerItemStatus status = playerItem.status;
+        switch (status) {
+            case AVPlayerItemStatusUnknown:{
+                if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+                    [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusUnkown];
+                }
+            }
+                break;
+                
+            case AVPlayerItemStatusReadyToPlay:{
+                
+                // When get ready to play note, we can go to play, and can add the video picture on show view.
+                if (!self.currentPlayVideoItem) return;
+                
+                [self.currentPlayVideoItem.player play];
+                
+//                [self hideActivaityIndicatorView];
+//                
+//                [self displayVideoPicturesOnShowLayer];
+                
+                if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+                    [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPlaying];
+                }
+            }
+                break;
+                
+            case AVPlayerItemStatusFailed:{
+//                [self hideActivaityIndicatorView];
+                
+                if (self.currentPlayVideoItem.error) self.currentPlayVideoItem.error([NSError errorWithDomain:@"Some errors happen on player" code:0 userInfo:nil]);
+                
+                if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+                    [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusFailed];
+                }
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    else if ([keyPath isEqualToString:@"loadedTimeRanges"]){
+        // It means player buffering if the player time don't change,
+        // else if the player time plus than before, it means begain play.
+        // fixed #28.
+        NSTimeInterval currentTime = CMTimeGetSeconds(self.currentPlayVideoItem.player.currentTime);
+        // JPLog(@"%f", currentTime)
+        
+        if (currentTime != 0 && currentTime > self.currentPlayVideoItem.lastTime) {
+//            [self hideActivaityIndicatorView];
+            self.currentPlayVideoItem.lastTime = currentTime;
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+                [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPlaying];
+            }
+        }
+        else{
+//            [self showActivaityIndicatorView];
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
+                [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusBuffering];
+            }
+        }
+    }
+}
+
+#pragma mark - Private
+
+- (void)startDownload{
+//    [self showActivaityIndicatorView];
+}
+
+- (void)finishedDownload{
+//    [self hideActivaityIndicatorView];
+}
+- (void)setCurrentPlayVideoItem:(CYVideoPlayerToolItem *)currentPlayVideoItem{
+    [self willChangeValueForKey:@"currentPlayVideoItem"];
+    _currentPlayVideoItem = currentPlayVideoItem;
+    [self didChangeValueForKey:@"currentPlayVideoItem"];
 }
 @end
