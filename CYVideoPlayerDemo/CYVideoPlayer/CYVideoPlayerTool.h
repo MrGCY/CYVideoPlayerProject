@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CYVideoPlayerManager.h"
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 //视频资源管理类
@@ -23,6 +24,7 @@
 
 @end
 
+
 /**
  错误的block
 
@@ -37,10 +39,54 @@ typedef void(^CYVideoPlayerPlayToolErrorBlock)(NSError * _Nullable error);
  */
 typedef void(^CYVideoPlayerPlayToolPlayingProgressBlock)(CGFloat progress);
 
+
 //视频工具类
 @interface CYVideoPlayerTool : NSObject
 /**
  创建播放器工具的单例对象
  */
-+(nonnull instancetype)shareTool;
++(nonnull instancetype)sharedTool;
+/**
+ * 当前播放的资源
+ */
+@property(nonatomic, strong, readonly, nullable)CYVideoPlayerToolItem * currentPlayVideoItem;
+
+/**
+ 加载本地视频资源
+
+ @param url 视频地址
+ @param fullVideoCachePath 视频已缓存的路径
+ @param options 视频的一些操作行为
+ @param showView 视频显示的视图
+ @param progress 视频播放的进度
+ @param error 错误信息
+ @return 当前视频的资源信息
+ */
+- (nullable CYVideoPlayerToolItem *)playExistedVideoWithURL:(NSURL * _Nullable)url
+                                         fullVideoCachePath:(NSString * _Nullable)fullVideoCachePath
+                                                    options:(CYVideoPlayerOptions)options showOnView:(UIView * _Nullable)showView
+                                            playingProgress:(CYVideoPlayerPlayToolPlayingProgressBlock _Nullable ) progress
+                                                      error:(nullable CYVideoPlayerPlayToolErrorBlock)error;
+
+/**
+ 播放在线视频 流媒体之类的
+
+ @param url 视频地址
+ @param tempVideoCachePath 视频缓存的路径
+ @param options 视频的一些操作行为
+ @param exceptSize 视频总大小
+ @param receivedSize 视频缓存的大小
+ @param showView 视频显示的视图
+ @param progress 视频播放的进度
+ @param error 错误信息
+ @return 当前视频的资源信息
+ */
+- (nullable CYVideoPlayerToolItem *)playOnlineVideoWithURL:(NSURL * _Nullable)url
+                                        tempVideoCachePath:(NSString * _Nullable)tempVideoCachePath
+                                                   options:(CYVideoPlayerOptions)options
+                                       videoFileExceptSize:(NSUInteger)exceptSize
+                                     videoFileReceivedSize:(NSUInteger)receivedSize
+                                                showOnView:(UIView * _Nullable)showView
+                                           playingProgress:(CYVideoPlayerPlayToolPlayingProgressBlock _Nullable )progress
+                                                     error:(nullable CYVideoPlayerPlayToolErrorBlock)error;
 @end

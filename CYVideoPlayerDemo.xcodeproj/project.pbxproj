@@ -18,6 +18,7 @@
 		411A42D21F5FE6CF00C1BEBB /* CYVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D11F5FE6CF00C1BEBB /* CYVideoPlayerManager.m */; };
 		411A42D51F5FE6EE00C1BEBB /* CYVideoPlayerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */; };
 		411A42D81F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */; };
+		411A42DB1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42DA1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerTool.m; sourceTree = "<group>"; };
 		411A42D61F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerResourceLoader.h; sourceTree = "<group>"; };
 		411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerResourceLoader.m; sourceTree = "<group>"; };
+		411A42D91F60D9F400C1BEBB /* UIView+VideoCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VideoCacheOperation.h"; sourceTree = "<group>"; };
+		411A42DA1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VideoCacheOperation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +162,8 @@
 				411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */,
 				411A42D61F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.h */,
 				411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */,
+				411A42D91F60D9F400C1BEBB /* UIView+VideoCacheOperation.h */,
+				411A42DA1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m */,
 			);
 			path = CYVideoPlayer;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				411A42D21F5FE6CF00C1BEBB /* CYVideoPlayerManager.m in Sources */,
+				411A42DB1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m in Sources */,
 				411A42D51F5FE6EE00C1BEBB /* CYVideoPlayerTool.m in Sources */,
 				411A42A41F5FE65600C1BEBB /* ViewController.m in Sources */,
 				411A42D81F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m in Sources */,
