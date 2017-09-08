@@ -7,6 +7,7 @@
 //
 
 #import "UIView+VideoCacheOperation.h"
+#import "UIView+WebVideoCache.h"
 #import <objc/message.h>
 static char videoLayerViewKey;
 static char backgroundLayerKey;
@@ -31,5 +32,30 @@ static char backgroundLayerKey;
         objc_setAssociatedObject(self, &videoLayerViewKey, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return view;
+}
+- (void)cy_setupVideoLayerView{
+    if (!self.cy_videoLayerView.superview) {
+        [self addSubview:self.cy_videoLayerView];
+    }
+}
+
+- (void)cy_removeVideoLayerView{
+    if (self.cy_videoLayerView.superview) {
+        [self.cy_videoLayerView removeFromSuperview];
+    }
+}
+- (void)displayBackLayer{
+    if (self.cy_backgroundLayer.superlayer) {
+        return;
+    }
+    self.cy_backgroundLayer.frame = self.bounds;
+    UIColor *backcolor = [UIColor clearColor];
+    if (self.jp_videoPlayerDelegate && [self.jp_videoPlayerDelegate respondsToSelector:@selector(shouldDisplayBlackLayerBeforePlayStart)]) {
+        if ([self.jp_videoPlayerDelegate shouldDisplayBlackLayerBeforePlayStart]) {
+            backcolor = [UIColor blackColor];
+        }
+    }
+    self.cy_backgroundLayer.backgroundColor = backcolor.CGColor;
+    [self.cy_videoLayerView.layer addSublayer:self.cy_backgroundLayer];
 }
 @end

@@ -469,7 +469,7 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
                 
 //                [self hideActivaityIndicatorView];
 //                
-//                [self displayVideoPicturesOnShowLayer];
+                [self displayVideoPicturesOnShowLayer];
                 
                 if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
                     [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPlaying];
@@ -529,5 +529,11 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
     [self willChangeValueForKey:@"currentPlayVideoItem"];
     _currentPlayVideoItem = currentPlayVideoItem;
     [self didChangeValueForKey:@"currentPlayVideoItem"];
+}
+- (void)displayVideoPicturesOnShowLayer{
+    if (!self.currentPlayVideoItem.isCancelled) {
+        // fixed #26.
+        [self.currentPlayVideoItem.unownShowView.cy_backgroundLayer addSublayer:self.currentPlayVideoItem.currentPlayerLayer];
+    }
 }
 @end

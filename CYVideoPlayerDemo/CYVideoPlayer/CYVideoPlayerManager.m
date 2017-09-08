@@ -197,6 +197,11 @@
                                     //当前资源为空
                                     __strong typeof(wShowView) sShowView = wShowView;
                                     if (!sShowView) return;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                                    // display backLayer.
+                                    [sShowView performSelector:NSSelectorFromString(@"displayBackLayer")];
+#pragma clang diagnostic pop
                                     //直接播放在线资源
                                     [[CYVideoPlayerTool sharedTool] playOnlineVideoWithURL:url tempVideoCachePath:tempVideoCachedPath options:options videoFileExceptSize:expectedSize videoFileReceivedSize:storedSize showOnView:sShowView playingProgress:^(CGFloat progress) {
                                         //播放进度
@@ -290,6 +295,11 @@
             
                 // play video from disk.
                 if (cacheType==CYVideoPlayerCacheTypeDisk) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                    // display backLayer.
+                    [showView performSelector:NSSelectorFromString(@"displayBackLayer")];
+#pragma clang diagnostic pop
                     //视频是否在磁盘中
                     //播放本地视频
                     [[CYVideoPlayerTool sharedTool] playExistedVideoWithURL:url fullVideoCachePath:videoPath options:options showOnView:showView playingProgress:^(CGFloat progress) {
@@ -331,7 +341,12 @@
     NSString *path = [url.absoluteString stringByReplacingOccurrencesOfString:@"file://" withString:@""];
     //判断文件路径是否存在
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        // display backLayer.
+        [showView performSelector:NSSelectorFromString(@"displayBackLayer")];
+#pragma clang diagnostic pop
+
         [[CYVideoPlayerTool sharedTool] playExistedVideoWithURL:url fullVideoCachePath:path options:options showOnView:showView playingProgress:^(CGFloat progress) {
             __strong typeof(wShowView) sShowView = wShowView;
             if (!sShowView) return;
@@ -383,13 +398,19 @@
     });
 }
 - (void)stopPlay{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     dispatch_main_async_safe(^{
         if (self.showViews.count) {
+            for (UIView *view in self.showViews) {
+                [view performSelector:NSSelectorFromString(@"cy_removeVideoLayerView")];
+            }
             [self.showViews removeAllObjects];
         }
         
         [[CYVideoPlayerTool sharedTool] stopPlay];
     });
+#pragma clang diagnostic pop
 }
 
 - (void)pause{
