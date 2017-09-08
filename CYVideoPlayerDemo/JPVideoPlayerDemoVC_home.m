@@ -11,7 +11,7 @@
 
 
 #import "JPVideoPlayerDemoVC_home.h"
-#import "UIView+WebVideoCache.h"
+#import "UIView+VideoCache.h"
 #import "JPVideoPlayerDemoCell.h"
 #import "UITableView+VideoPlay.h"
 #import "JPVideoPlayerDemoVC_push.h"
@@ -48,7 +48,7 @@ static NSString *JPVideoPlayerDemoReuseID = @"JPVideoPlayerDemoReuseID";
     
     [self setup];
     
-    [self insertLineInScreenCenter];
+//    [self insertLineInScreenCenter];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -64,9 +64,8 @@ static NSString *JPVideoPlayerDemoReuseID = @"JPVideoPlayerDemoReuseID";
         [self.tableView playVideoInVisiableCells];
     }
     else{
-        
         NSURL *url = [NSURL URLWithString:self.tableView.playingCell.videoPath];
-        [self.tableView.playingCell.videoImv jp_playVideoMutedDisplayStatusViewWithURL:url];
+        [self.tableView.playingCell.videoImv cy_playVideoMutedDisplayStatusViewWithURL:url];
     }
     
     self.tableViewRange.hidden = NO;
@@ -79,9 +78,8 @@ static NSString *JPVideoPlayerDemoReuseID = @"JPVideoPlayerDemoReuseID";
     self.tableView.delegate = nil;
     
     if (self.tableView.playingCell) {
-        [self.tableView.playingCell.videoImv jp_stopPlay];
+        [self.tableView.playingCell.videoImv cy_stopPlay];
     }
-    
     self.tableViewRange.hidden = YES;
 }
 
@@ -130,7 +128,7 @@ static NSString *JPVideoPlayerDemoReuseID = @"JPVideoPlayerDemoReuseID";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JPVideoPlayerDemoRowHei;
+    return tableView.bounds.size.height;
 }
 
 /**
@@ -182,10 +180,9 @@ static NSString *JPVideoPlayerDemoReuseID = @"JPVideoPlayerDemoReuseID";
     navBarImageView.image = [UIImage imageNamed:@"navbar"];
     navBarImageView.frame = CGRectMake(0, -20, [UIScreen mainScreen].bounds.size.width, JPVideoPlayerDemoNavAndStatusTotalHei);
     [self.navigationController.navigationBar addSubview:navBarImageView];
-    
-    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.pagingEnabled = YES;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([JPVideoPlayerDemoCell class]) bundle:nil] forCellReuseIdentifier:JPVideoPlayerDemoReuseID];
     
     // location file in disk.

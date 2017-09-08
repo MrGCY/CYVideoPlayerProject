@@ -1,28 +1,19 @@
-/*
- * This file is part of the JPVideoPlayer package.
- * (c) NewPan <13246884282@163.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * Click https://github.com/Chris-Pan
- * or http://www.jianshu.com/users/e2f2d779c022/latest_articles to contact me.
- */
+//
+//  UIView+VideoCacheOperation.m
+//  CYVideoPlayerDemo
+//
+//  Created by Mr.GCY on 2017/9/8.
+//  Copyright © 2017年 Mr.GCY. All rights reserved.
+//
 
-
-#import "UIView+WebVideoCacheOperation.h"
-#import "objc/runtime.h"
+#import "UIView+VideoCacheOperation.h"
+#import <objc/message.h>
 #import "CYVideoPlayerOperationProtocol.h"
-
 static char loadOperationKey;
 static char currentPlayingURLKey;
 
-typedef NSMutableDictionary<NSString *, id> JPOperationsDictionary;
-
-@implementation UIView (WebVideoCacheOperation)
-
-#pragma mark - Public
-
+typedef NSMutableDictionary<NSString *, id> CYOperationsDictionary;
+@implementation UIView (VideoCacheOperation)
 - (void)setCurrentPlayingURL:(NSURL *)currentPlayingURL{
     objc_setAssociatedObject(self, &currentPlayingURLKey, currentPlayingURL, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -31,19 +22,19 @@ typedef NSMutableDictionary<NSString *, id> JPOperationsDictionary;
     return objc_getAssociatedObject(self, &currentPlayingURLKey);
 }
 
-- (void)jp_setVideoLoadOperation:(id)operation forKey:(NSString *)key{
+- (void)cy_setVideoLoadOperation:(id)operation forKey:(NSString *)key{
     if (key) {
-        [self jp_cancelVideoLoadOperationWithKey:key];
+        [self cy_cancelVideoLoadOperationWithKey:key];
         if (operation) {
-            JPOperationsDictionary *operationDictionary = [self operationDictionary];
+            CYOperationsDictionary *operationDictionary = [self operationDictionary];
             operationDictionary[key] = operation;
         }
     }
 }
 
-- (void)jp_cancelVideoLoadOperationWithKey:(NSString *)key{
+- (void)cy_cancelVideoLoadOperationWithKey:(NSString *)key{
     // Cancel in progress downloader from queue.
-    JPOperationsDictionary *operationDictionary = [self operationDictionary];
+    CYOperationsDictionary *operationDictionary = [self operationDictionary];
     id operations = operationDictionary[key];
     if (operations) {
         if ([operations isKindOfClass:[NSArray class]]) {
@@ -60,18 +51,18 @@ typedef NSMutableDictionary<NSString *, id> JPOperationsDictionary;
     }
 }
 
-- (void)jp_removeVideoLoadOperationWithKey:(NSString *)key{
+- (void)cy_removeVideoLoadOperationWithKey:(NSString *)key{
     if (key) {
-        JPOperationsDictionary *operationDictionary = [self operationDictionary];
+        CYOperationsDictionary *operationDictionary = [self operationDictionary];
         [operationDictionary removeObjectForKey:key];
     }
 }
 
-    
+
 #pragma mark - Private
 
-- (JPOperationsDictionary *)operationDictionary {
-    JPOperationsDictionary *operations = objc_getAssociatedObject(self, &loadOperationKey);
+- (CYOperationsDictionary *)operationDictionary {
+    CYOperationsDictionary *operations = objc_getAssociatedObject(self, &loadOperationKey);
     if (operations) {
         return operations;
     }

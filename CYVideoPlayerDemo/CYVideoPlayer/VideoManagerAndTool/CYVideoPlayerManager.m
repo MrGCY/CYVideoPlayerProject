@@ -10,7 +10,7 @@
 #import "CYVideoPlayerResourceLoader.h"
 #import "CYVideoPlayerMacros.h"
 #import "CYVideoPlayerTool.h"
-#import "UIView+WebVideoCacheOperation.h"
+#import "UIView+VideoCacheOperation.h"
 #import "UIView+showVideoAndIndicator.h"
 //-------------------------联系下载缓存操作的类
 @interface CYVideoPlayerCombinedOperation : NSObject<CYVideoPlayerOperationProtocol>
@@ -243,7 +243,7 @@
                             [[CYVideoPlayerTool sharedTool] didCachedVideoDataFinishedFromWebFullVideoCachePath:fullVideoCachePath];
                             [self cy_completionBlockForOperation:strongOperation completion:completedBlock videoPath:fullVideoCachePath error:nil cacheType:CYVideoPlayerCacheTypeNone url:url];
                             [self cy_safelyRemoveOperationFromRunning:strongOperation];
-                            
+                            //回调下载进度的变化
                             if (self.delegate && [self.delegate respondsToSelector:@selector(videoPlayerManager:downloadingProgressDidChanged:)]) {
                                 [self.delegate videoPlayerManager:self downloadingProgressDidChanged:1];
                             }

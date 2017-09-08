@@ -10,9 +10,9 @@
  */
 
 #import "JPVideoPlayerDemoCell.h"
-#import "UIView+WebVideoCache.h"
+#import "UIView+VideoCache.h"
 
-@interface JPVideoPlayerDemoCell()<JPVideoPlayerDelegate>
+@interface JPVideoPlayerDemoCell()<CYVideoPlayerDelegate>
 
 @end
 
@@ -21,7 +21,7 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     
-    self.videoImv.jp_videoPlayerDelegate = self;
+    self.videoImv.cy_videoPlayerDelegate = self;
 }
 
 - (void)setIndexPath:(NSIndexPath *)indexPath{
@@ -34,8 +34,6 @@
         self.videoImv.image = [UIImage imageNamed:@"placeholder2"];
     }
 }
-
-
 #pragma mark - JPVideoPlayerDelegate
 
 - (BOOL)videoPlayerManager:(CYVideoPlayerManager *)videoPlayerManager shouldAutoReplayForURL:(NSURL *)videoURL{

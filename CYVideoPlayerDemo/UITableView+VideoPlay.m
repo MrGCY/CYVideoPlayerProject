@@ -9,7 +9,7 @@
 #import "UITableView+VideoPlay.h"
 #import "JPVideoPlayerDemoCell.h"
 #import <objc/runtime.h>
-#import "UIView+WebVideoCache.h"
+#import "UIView+VideoCache.h"
 
 
 CGFloat const JPVideoPlayerDemoNavAndStatusTotalHei = 64;
@@ -37,7 +37,7 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
         self.playingCell = videoCell;
         
         // display status view.
-        [videoCell.videoImv jp_playVideoWithURL:[NSURL URLWithString:videoCell.videoPath]];
+        [videoCell.videoImv cy_playVideoWithURL:[NSURL URLWithString:videoCell.videoPath]];
     }
 }
 
@@ -51,7 +51,7 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
     // 注意, 如果正在播放的 cell 和 finnalCell 是同一个 cell, 不应该在播放.
     if (self.playingCell.hash != bestCell.hash && bestCell.hash != 0) {
         
-        [self.playingCell.videoImv jp_stopPlay];
+        [self.playingCell.videoImv cy_stopPlay];
         
         NSURL *url = [NSURL URLWithString:bestCell.videoPath];
         
@@ -59,7 +59,7 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
         // [bestCell.videoImv jp_playVideoDisplayStatusViewWithURL:url];
         
         // hide status view.
-         [bestCell.videoImv jp_playVideoWithURL:url];
+         [bestCell.videoImv cy_playVideoWithURL:url];
         
         self.playingCell = bestCell;
     }
@@ -77,7 +77,7 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
 }
 
 - (void)stopPlay{
-    [self.playingCell.videoImv jp_stopPlay];
+    [self.playingCell.videoImv cy_stopPlay];
     self.playingCell = nil;
 }
 

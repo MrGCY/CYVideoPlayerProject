@@ -10,9 +10,9 @@
  */
 
 #import "JPVideoPlayerDemoVC_push.h"
-#import "UIView+WebVideoCache.h"
+#import "UIView+VideoCache.h"
 
-@interface JPVideoPlayerDemoVC_push ()<JPVideoPlayerDelegate>
+@interface JPVideoPlayerDemoVC_push ()<CYVideoPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISwitch *muteSwitch;
 
@@ -50,24 +50,24 @@
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self.videoContainer addGestureRecognizer:tapGestureRecognizer];
     
-    self.videoContainer.jp_videoPlayerDelegate = self;
+    self.videoContainer.cy_videoPlayerDelegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    [self.videoContainer jp_playVideoWithURL:[NSURL URLWithString:_videoPath]];
+    [self.videoContainer cy_playVideoWithURL:[NSURL URLWithString:_videoPath]];
     
 //    [self.videoContainer jp_perfersPlayingProgressViewColor:[UIColor redColor]];
 //    [self.videoContainer jp_perfersDownloadProgressViewColor:[UIColor lightGrayColor]];
-    self.muteSwitch.on = ![self.videoContainer jp_playerIsMute];
+    self.muteSwitch.on = ![self.videoContainer cy_playerIsMute];
     self.playOrPauseSwitch.on = self.videoContainer.playingStatus == CYVideoPlayerPlayingStatusPlaying ? NO : YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-    [self.videoContainer jp_stopPlay];
+    [self.videoContainer cy_stopPlay];
 }
 
 - (void)dealloc{
@@ -78,11 +78,11 @@
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateEnded) {
-        if (self.videoContainer.viewStatus == JPVideoPlayerVideoViewStatusPortrait) {
-            [self.videoContainer jp_gotoLandscapeAnimated:YES completion:nil];
+        if (self.videoContainer.viewStatus == CYVideoPlayerVideoViewPlaceStatusPortrait) {
+            [self.videoContainer cy_gotoLandscapeAnimated:YES completion:nil];
         }
-        else if (self.videoContainer.viewStatus == JPVideoPlayerVideoViewStatusLandscape) {
-            [self.videoContainer jp_gotoPortraitAnimated:YES completion:nil];
+        else if (self.videoContainer.viewStatus == CYVideoPlayerVideoViewPlaceStatusLandscape) {
+            [self.videoContainer cy_gotoPortraitAnimated:YES completion:nil];
         }
     }
 }
@@ -91,7 +91,7 @@
 #pragma mark - Click Events
 
 - (IBAction)muteSwitch:(UISwitch *)sw {
-    [self.videoContainer jp_setPlayerMute:!sw.on];
+    [self.videoContainer cy_setPlayerMute:!sw.on];
 }
 
 - (IBAction)closeBtnClick:(id)sender {
@@ -101,10 +101,10 @@
 - (IBAction)playOrPause:(id)sender {
     CYVideoPlayerPlayingStatus status = self.videoContainer.playingStatus;
     if (status == CYVideoPlayerPlayingStatusPlaying) {
-        [self.videoContainer jp_pause];
+        [self.videoContainer cy_pause];
     }
     else{
-        [self.videoContainer jp_resume];
+        [self.videoContainer cy_resume];
     }
 }
 

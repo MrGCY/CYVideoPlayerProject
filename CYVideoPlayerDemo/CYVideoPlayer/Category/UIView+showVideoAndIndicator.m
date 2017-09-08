@@ -9,7 +9,7 @@
 #import "UIView+showVideoAndIndicator.h"
 #import "CYActivityindicatorView.h"
 #import "CYProgressView.h"
-#import "UIView+WebVideoCache.h"
+#import "UIView+VideoCache.h"
 #import "CYVideoPlayerTool.h"
 
 #import <objc/message.h>
@@ -138,8 +138,8 @@ static char backgroundLayerKey;
     }
     self.cy_backgroundLayer.frame = self.bounds;
     UIColor *backcolor = [UIColor clearColor];
-    if (self.jp_videoPlayerDelegate && [self.jp_videoPlayerDelegate respondsToSelector:@selector(shouldDisplayBlackLayerBeforePlayStart)]) {
-        if ([self.jp_videoPlayerDelegate shouldDisplayBlackLayerBeforePlayStart]) {
+    if (self.cy_videoPlayerDelegate && [self.cy_videoPlayerDelegate respondsToSelector:@selector(shouldDisplayBlackLayerBeforePlayStart)]) {
+        if ([self.cy_videoPlayerDelegate shouldDisplayBlackLayerBeforePlayStart]) {
             backcolor = [UIColor blackColor];
         }
     }
@@ -270,7 +270,7 @@ static char backgroundLayerKey;
 
 - (void)layoutProgressViewForPortrait:(UIView *)progressView{
     CGFloat progressViewY = self.frame.size.height - CYVideoPlayerLayerFrameY;
-    if ([self.jp_videoPlayerDelegate respondsToSelector:@selector(shouldProgressViewOnTop)] && [self.jp_videoPlayerDelegate shouldProgressViewOnTop]) {
+    if ([self.cy_videoPlayerDelegate respondsToSelector:@selector(shouldProgressViewOnTop)] && [self.cy_videoPlayerDelegate shouldProgressViewOnTop]) {
         progressViewY = 0;
     }
     progressView.frame = CGRectMake(0, progressViewY, self.frame.size.width, CYVideoPlayerLayerFrameY);
@@ -280,7 +280,7 @@ static char backgroundLayerKey;
     CGFloat width = CGRectGetHeight(self.superview.bounds);
     CGFloat hei = CGRectGetWidth(self.superview.bounds);
     CGFloat progressViewY = hei - CYVideoPlayerLayerFrameY;
-    if ([self.jp_videoPlayerDelegate respondsToSelector:@selector(shouldProgressViewOnTop)] && [self.jp_videoPlayerDelegate shouldProgressViewOnTop]) {
+    if ([self.cy_videoPlayerDelegate respondsToSelector:@selector(shouldProgressViewOnTop)] && [self.cy_videoPlayerDelegate shouldProgressViewOnTop]) {
         progressViewY = 0;
     }
     progressView.frame = CGRectMake(0, progressViewY, width, hei);
