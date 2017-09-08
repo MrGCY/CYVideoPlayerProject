@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "CYVideoPlayerOperation.h"
+#import "CYVideoPlayerOperationProtocol.h"
 #import "CYVideoPlayerCache.h"
 #import "CYVideoPlayerDownloader.h"
 
@@ -114,7 +114,7 @@ typedef void(^CYVideoPlayerCompletionBlock)(NSString * _Nullable fullVideoCacheP
  创建播放器管理者单例对象
  */
 +(nonnull instancetype)sharedManager;
-- (nullable id <CYVideoPlayerOperation>)cy_loadVideoWithURL:(nullable NSURL *)url
+- (nullable id <CYVideoPlayerOperationProtocol>)cy_loadVideoWithURL:(nullable NSURL *)url
                                                  showOnView:(nullable UIView *)showView
                                                     options:(CYVideoPlayerOptions)options
                                            downloadProgress:(nullable CYVideoPlayerDownloaderProgressBlock)progressBlock

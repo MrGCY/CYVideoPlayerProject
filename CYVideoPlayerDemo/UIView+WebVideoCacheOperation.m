@@ -12,7 +12,7 @@
 
 #import "UIView+WebVideoCacheOperation.h"
 #import "objc/runtime.h"
-#import "CYVideoPlayerOperation.h"
+#import "CYVideoPlayerOperationProtocol.h"
 
 static char loadOperationKey;
 static char currentPlayingURLKey;
@@ -47,14 +47,14 @@ typedef NSMutableDictionary<NSString *, id> JPOperationsDictionary;
     id operations = operationDictionary[key];
     if (operations) {
         if ([operations isKindOfClass:[NSArray class]]) {
-            for (id <CYVideoPlayerOperation> operation in operations) {
+            for (id <CYVideoPlayerOperationProtocol> operation in operations) {
                 if (operation) {
                     [operation cancel];
                 }
             }
         }
-        else if ([operations conformsToProtocol:@protocol(CYVideoPlayerOperation)]){
-            [(id<CYVideoPlayerOperation>) operations cancel];
+        else if ([operations conformsToProtocol:@protocol(CYVideoPlayerOperationProtocol)]){
+            [(id<CYVideoPlayerOperationProtocol>) operations cancel];
         }
         [operationDictionary removeObjectForKey:key];
     }

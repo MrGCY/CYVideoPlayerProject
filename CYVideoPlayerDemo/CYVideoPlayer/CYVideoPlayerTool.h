@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import "CYVideoPlayerManager.h"
+extern CGFloat const CYVideoPlayerLayerFrameY;
 //视频资源管理类
 @interface CYVideoPlayerToolItem : NSObject
 /**

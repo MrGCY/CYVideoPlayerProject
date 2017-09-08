@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CYVideoPlayerManager.h"
-#import "UIView+VideoCacheOperation.h"
+#import "UIView+showVideoAndIndicator.h"
 
 typedef NS_ENUM(NSInteger, JPVideoPlayerVideoViewStatus) {
     JPVideoPlayerVideoViewStatusPortrait,

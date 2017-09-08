@@ -61,16 +61,13 @@ static NSString *JPVideoPlayerErrorDomain = @"JPVideoPlayerErrorDomain";
     
     if (url) {
         __weak typeof(self) wself = self;
-        
-        // set self as the delegate of `JPVideoPlayerManager`.
+
         [CYVideoPlayerManager sharedManager].delegate = self;
         
-        // set up the video layer view and indicator view.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self performSelector:NSSelectorFromString(@"cy_setupVideoLayerView")];
-#pragma clang diagnostic pop
-       id <CYVideoPlayerOperation> operation = [[CYVideoPlayerManager sharedManager] cy_loadVideoWithURL:url showOnView:self options:options downloadProgress:progressBlock completed:^(NSString * _Nullable fullVideoCachePath, NSError * _Nullable error, CYVideoPlayerCacheType cacheType, NSURL * _Nullable videoURL) {
+        // 初始化播放器和加载视图
+        [self cy_setupVideoLayerViewAndIndicatorView];
+        
+       id <CYVideoPlayerOperationProtocol> operation = [[CYVideoPlayerManager sharedManager] cy_loadVideoWithURL:url showOnView:self options:options downloadProgress:progressBlock completed:^(NSString * _Nullable fullVideoCachePath, NSError * _Nullable error, CYVideoPlayerCacheType cacheType, NSURL * _Nullable videoURL) {
             __strong __typeof (wself) sself = wself;
             if (!sself) return;
             

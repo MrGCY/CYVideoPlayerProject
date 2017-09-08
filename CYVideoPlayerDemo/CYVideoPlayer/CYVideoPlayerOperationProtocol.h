@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol CYVideoPlayerOperation <NSObject>
+@protocol CYVideoPlayerOperationProtocol <NSObject>
 
 - (void)cancel;
 

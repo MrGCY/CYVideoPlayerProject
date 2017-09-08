@@ -8,9 +8,9 @@
 
 #import "CYVideoPlayerTool.h"
 #import "CYVideoPlayerResourceLoader.h"
-#import "UIView+VideoCacheOperation.h"
+#import "UIView+showVideoAndIndicator.h"
 #import "CYVideoPlayerDownloaderOperation.h"
-
+CGFloat const CYVideoPlayerLayerFrameY = 1;
 @interface CYVideoPlayerToolItem()
 /**
  * 视频播放的 URL
@@ -84,6 +84,11 @@
  */
 - (void)stopPlayVideo{
     self.cancelled = YES;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [self.unownShowView performSelector:NSSelectorFromString(@"cy_hideProgressView")];
+    [self.unownShowView performSelector:NSSelectorFromString(@"cy_hideActivityIndicatorView")];
+#pragma clang diagnostic pop
     [self reset];
 }
 /**
@@ -423,7 +428,7 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
     }
 }
 #pragma mark - AVPlayer Observer
-
+//播放完成
 - (void)playerItemDidPlayToEnd:(NSNotification *)notification{
     
     // ask need automatic replay or not.
@@ -432,7 +437,6 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
             return;
         }
     }
-    
     // Seek the start point of file data and repeat play, this handle have no memory surge.
     __weak typeof(self.currentPlayVideoItem) weak_Item = self.currentPlayVideoItem;
     [self.currentPlayVideoItem.player seekToTime:CMTimeMake(0, 1) completionHandler:^(BOOL finished) {
@@ -467,8 +471,7 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
                 
                 [self.currentPlayVideoItem.player play];
                 
-//                [self hideActivaityIndicatorView];
-//                
+                [self hideActivaityIndicatorView];
                 [self displayVideoPicturesOnShowLayer];
                 
                 if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
@@ -478,8 +481,7 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
                 break;
                 
             case AVPlayerItemStatusFailed:{
-//                [self hideActivaityIndicatorView];
-                
+                [self hideActivaityIndicatorView];
                 if (self.currentPlayVideoItem.error) self.currentPlayVideoItem.error([NSError errorWithDomain:@"Some errors happen on player" code:0 userInfo:nil]);
                 
                 if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
@@ -492,23 +494,15 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
         }
     }
     else if ([keyPath isEqualToString:@"loadedTimeRanges"]){
-        // It means player buffering if the player time don't change,
-        // else if the player time plus than before, it means begain play.
-        // fixed #28.
         NSTimeInterval currentTime = CMTimeGetSeconds(self.currentPlayVideoItem.player.currentTime);
-        // JPLog(@"%f", currentTime)
-        
         if (currentTime != 0 && currentTime > self.currentPlayVideoItem.lastTime) {
-//            [self hideActivaityIndicatorView];
+            [self hideActivaityIndicatorView];
             self.currentPlayVideoItem.lastTime = currentTime;
-            
             if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
                 [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusPlaying];
             }
-        }
-        else{
-//            [self showActivaityIndicatorView];
-            
+        }else{
+            [self showActivaityIndicatorView];
             if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:playingStatuDidChanged:)]) {
                 [self.delegate playVideoTool:self playingStatuDidChanged:CYVideoPlayerPlayingStatusBuffering];
             }
@@ -519,11 +513,29 @@ static NSString *CYVideoPlayerURL = @"www.Mr-GCY.com";
 #pragma mark - Private
 
 - (void)startDownload{
-//    [self showActivaityIndicatorView];
+    [self showActivaityIndicatorView];
 }
 
 - (void)finishedDownload{
-//    [self hideActivaityIndicatorView];
+    [self hideActivaityIndicatorView];
+}
+
+- (void)showActivaityIndicatorView{
+    if (self.currentPlayVideoItem.playerOptions&CYVideoPlayerShowActivityIndicatorView){
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.currentPlayVideoItem.unownShowView performSelector:NSSelectorFromString(@"cy_showActivityIndicatorView")];
+#pragma clang diagnostic pop
+    }
+}
+
+- (void)hideActivaityIndicatorView{
+    if (self.currentPlayVideoItem.playerOptions&CYVideoPlayerShowActivityIndicatorView){
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self.currentPlayVideoItem.unownShowView performSelector:NSSelectorFromString(@"cy_hideActivityIndicatorView")];
+#pragma clang diagnostic pop
+    }
 }
 - (void)setCurrentPlayVideoItem:(CYVideoPlayerToolItem *)currentPlayVideoItem{
     [self willChangeValueForKey:@"currentPlayVideoItem"];

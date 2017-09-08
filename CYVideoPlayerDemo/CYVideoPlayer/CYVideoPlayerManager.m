@@ -10,8 +10,10 @@
 #import "CYVideoPlayerResourceLoader.h"
 #import "CYVideoPlayerMacros.h"
 #import "CYVideoPlayerTool.h"
+#import "UIView+WebVideoCacheOperation.h"
+#import "UIView+showVideoAndIndicator.h"
 //-------------------------联系下载缓存操作的类
-@interface CYVideoPlayerCombinedOperation : NSObject<CYVideoPlayerOperation>
+@interface CYVideoPlayerCombinedOperation : NSObject<CYVideoPlayerOperationProtocol>
 @property (assign, nonatomic, getter = isCancelled) BOOL cancelled;
 
 @property (copy, nonatomic, nullable) CYVideoPlayerNoParamsBlock cancelBlock;
@@ -96,7 +98,7 @@
 }
 
 #pragma mark -加载视频资源  通过地址判断是本地资源还是流媒体资源
-- (nullable id <CYVideoPlayerOperation>)cy_loadVideoWithURL:(nullable NSURL *)url
+- (nullable id <CYVideoPlayerOperationProtocol>)cy_loadVideoWithURL:(nullable NSURL *)url
                                                  showOnView:(nullable UIView *)showView
                                                     options:(CYVideoPlayerOptions)options
                                            downloadProgress:(nullable CYVideoPlayerDownloaderProgressBlock)progressBlock
@@ -138,13 +140,15 @@
     NSString *key = [self cacheKeyForURL:url];
     BOOL isFileURL = [url isFileURL];
     
-    // show progress view and activity indicator view if need.
-//    [self showProgressViewAndActivityIndicatorViewForView:showView options:options];
+    // 显示加载器和下载视图
+    [self showProgressViewAndActivityIndicatorViewForView:showView options:options];
     
     __weak typeof(showView) wShowView = showView;
     if (isFileURL) {
+        // 隐藏指示器
+        [self hideActivityViewWithURL:url options:options];
         //加载本地视频
-        id  backOperation = [self cy_loadLocalVideoWithURL:url showOnView:showView options:options playingProgress:nil completed:completedBlock combinedOperation:operation];
+        id  backOperation = [self cy_loadLocalVideoWithURL:url showOnView:showView options:options completed:completedBlock combinedOperation:operation];
         if (backOperation) {
             return backOperation;
         }
@@ -171,10 +175,10 @@
                     downloaderOptions |= CYVideoPlayerDownloaderHandleCookies;
                 if (options & CYVideoPlayerAllowInvalidSSLCertificates)
                     downloaderOptions |= CYVideoPlayerDownloaderAllowInvalidSSLCertificates;
-//                    if (options & JPVideoPlayerShowProgressView)
-//                        downloaderOptions |= JPVideoPlayerDownloaderShowProgressView;
-//                    if (options & JPVideoPlayerShowActivityIndicatorView)
-//                        downloaderOptions |= JPVideoPlayerDownloaderShowActivityIndicatorView;
+                if (options & CYVideoPlayerShowProgressView)
+                    downloaderOptions |= CYVideoPlayerDownloaderShowProgressView;
+                if (options & CYVideoPlayerShowActivityIndicatorView)
+                    downloaderOptions |= CYVideoPlayerDownloaderShowActivityIndicatorView;
             }
             // Save received data to disk. 保存视频到硬盘中 下载进度的回调
             CYVideoPlayerDownloaderProgressBlock handleProgressBlock = ^(NSData * _Nullable data, NSInteger receivedSize, NSInteger expectedSize, NSString *_Nullable tempVideoCachedPath, NSURL * _Nullable targetURL){
@@ -188,6 +192,8 @@
                     }
                     if (!error) {
                         if (!fullVideoCachePath) {
+                            // 刷新下载视图
+                            [self progressRefreshWithURL:targetURL options:options receiveSize:storedSize exceptSize:expectedSize];
                             //没有完全缓存完成  只缓存了一部分
                             if (progressBlock) {
                                 progressBlock(data, storedSize, expectedSize, tempVideoCachedPath, targetURL);
@@ -197,23 +203,26 @@
                                     //当前资源为空
                                     __strong typeof(wShowView) sShowView = wShowView;
                                     if (!sShowView) return;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                                    // display backLayer.
-                                    [sShowView performSelector:NSSelectorFromString(@"displayBackLayer")];
-#pragma clang diagnostic pop
+                                    //播放前显示黑色背景
+                                    [showView displayBackLayer];
                                     //直接播放在线资源
                                     [[CYVideoPlayerTool sharedTool] playOnlineVideoWithURL:url tempVideoCachePath:tempVideoCachedPath options:options videoFileExceptSize:expectedSize videoFileReceivedSize:storedSize showOnView:sShowView playingProgress:^(CGFloat progress) {
                                         //播放进度
-//                                        if (playProgress) {
-//                                            playProgress(progress);
-//                                        }
+                                        BOOL needDisplayProgress = [self needDisplayPlayingProgressViewWithPlayingProgressValue:progress];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                                        if (needDisplayProgress) {
+                                            [sShowView performSelector:NSSelectorFromString(@"cy_progressViewPlayingStatusChangedWithProgressValue:") withObject:@(progress)];
+                                        }
+#pragma clang diagnostic pop
                                     } error:^(NSError * _Nullable error) {
                                         if (error) {
                                             if (completedBlock) {
                                                 [self cy_completionBlockForOperation:strongOperation completion:completedBlock videoPath:nil error:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorFileDoesNotExist userInfo:nil] cacheType:CYVideoPlayerCacheTypeNone url:targetURL];
                                                 //移除操作
                                                 [self cy_safelyRemoveOperationFromRunning:operation];
+                                                //移除加载器视图
+                                                [self hideAllIndicatorAndProgressViewsWithURL:url options:options];
                                             }
                                         }
 
@@ -221,6 +230,7 @@
                                     [CYVideoPlayerTool sharedTool].delegate = self;
                                 }else{
                                     //资源不为空
+                                    
                                     NSString *key = [[CYVideoPlayerManager sharedManager] cacheKeyForURL:targetURL];
                                     if ([CYVideoPlayerTool sharedTool].currentPlayVideoItem && [key isEqualToString:[CYVideoPlayerTool sharedTool].currentPlayVideoItem.playingKey]) {
                                         //将当前缓存好的视频填充到对应的loadRequestUrl中
@@ -242,6 +252,8 @@
                         //存储出现的一些错误
                         [self cy_completionBlockForOperation:strongOperation completion:completedBlock videoPath:nil error:error cacheType:CYVideoPlayerCacheTypeNone url:url];
                         [self cy_safelyRemoveOperationFromRunning:strongOperation];
+                        // 隐藏指示器视图
+                        [self hideAllIndicatorAndProgressViewsWithURL:url options:options];
                     }
                 }];
             };
@@ -285,6 +297,9 @@
                     [self.videoCache cancel:cacheToken];
                     [self.videoDownloader cancel:subOperationToken];
                     [[CYVideoPlayerManager sharedManager] stopPlay];
+                    // hide indicator view.
+                    [self hideAllIndicatorAndProgressViewsWithURL:url options:options];
+                    
                     __strong __typeof(weakOperation) strongOperation = weakOperation;
                     [self cy_safelyRemoveOperationFromRunning:strongOperation];
                 };
@@ -292,22 +307,32 @@
         }else if(videoPath){
                 //缓存中有视频
                 __strong __typeof(weakOperation) strongOperation = weakOperation;
-            
+                // hide activity view.
+                [self hideActivityViewWithURL:url options:options];
                 // play video from disk.
                 if (cacheType==CYVideoPlayerCacheTypeDisk) {
+                    BOOL needDisplayProgressView = [self needDisplayDownloadingProgressViewWithDownloadingProgressValue:1.0];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                    // display backLayer.
-                    [showView performSelector:NSSelectorFromString(@"displayBackLayer")];
+                    if (needDisplayProgressView) {
+                        [showView performSelector:NSSelectorFromString(@"cy_progressViewDownloadingStatusChangedWithProgressValue:") withObject:@1];
+                    }
 #pragma clang diagnostic pop
+                    //播放前显示黑色背景
+                    [showView displayBackLayer];
+                    
                     //视频是否在磁盘中
                     //播放本地视频
                     [[CYVideoPlayerTool sharedTool] playExistedVideoWithURL:url fullVideoCachePath:videoPath options:options showOnView:showView playingProgress:^(CGFloat progress) {
                         __strong typeof(wShowView) sShowView = wShowView;
                         if (!sShowView) return;
-//                        if (playProgress) {
-//                            playProgress(progress);
-//                        }
+                        BOOL needDisplayProgressView = [self needDisplayPlayingProgressViewWithPlayingProgressValue:progress];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                        if (needDisplayProgressView) {
+                            [showView performSelector:NSSelectorFromString(@"cy_progressViewPlayingStatusChangedWithProgressValue:") withObject:@(progress)];
+                        }
+#pragma clang diagnostic pop
                     } error:^(NSError * _Nullable error) {
                         if (completedBlock) {
                             completedBlock(nil, error, CYVideoPlayerCacheTypeLocation, url);
@@ -319,9 +344,13 @@
                 [self cy_completionBlockForOperation:strongOperation completion:completedBlock videoPath:videoPath error:nil cacheType:CYVideoPlayerCacheTypeDisk url:url];
                 [self cy_safelyRemoveOperationFromRunning:operation];
         }else {
+                // hide activity and progress view.
+                [self hideAllIndicatorAndProgressViewsWithURL:url options:options];
                 __strong __typeof(weakOperation) strongOperation = weakOperation;
                 [self cy_completionBlockForOperation:strongOperation completion:completedBlock videoPath:nil error:nil cacheType:CYVideoPlayerCacheTypeNone url:url];
                 [self cy_safelyRemoveOperationFromRunning:operation];
+                // hide activity and progress view.
+                [self hideAllIndicatorAndProgressViewsWithURL:url options:options];
             }
         }];
     }
@@ -330,10 +359,9 @@
 }
 
 //加载本地视频资源
--(nullable id <CYVideoPlayerOperation>)cy_loadLocalVideoWithURL:(nullable NSURL *)url
+-(nullable id <CYVideoPlayerOperationProtocol>)cy_loadLocalVideoWithURL:(nullable NSURL *)url
                                                      showOnView:(nullable UIView *)showView
                                                         options:(CYVideoPlayerOptions)options
-                                                playingProgress:(CYVideoPlayerPlayToolPlayingProgressBlock _Nullable ) playProgress
                                                       completed:(nullable CYVideoPlayerCompletionBlock)completedBlock
                                               combinedOperation:(nullable CYVideoPlayerCombinedOperation *)operation{
     //是本地视频
@@ -341,18 +369,26 @@
     NSString *path = [url.absoluteString stringByReplacingOccurrencesOfString:@"file://" withString:@""];
     //判断文件路径是否存在
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        BOOL needDisplayProgressView = [self needDisplayDownloadingProgressViewWithDownloadingProgressValue:1.0];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        // display backLayer.
-        [showView performSelector:NSSelectorFromString(@"displayBackLayer")];
+        if (needDisplayProgressView) {
+            [showView performSelector:NSSelectorFromString(@"cy_progressViewDownloadingStatusChangedWithProgressValue:") withObject:@1];
+        }
 #pragma clang diagnostic pop
-
+        //播放前显示黑色背景
+        [showView displayBackLayer];
         [[CYVideoPlayerTool sharedTool] playExistedVideoWithURL:url fullVideoCachePath:path options:options showOnView:showView playingProgress:^(CGFloat progress) {
             __strong typeof(wShowView) sShowView = wShowView;
             if (!sShowView) return;
-            if (playProgress) {
-                playProgress(progress);
+            //显示下载进度
+            BOOL needDisplayProgressView = [self needDisplayPlayingProgressViewWithPlayingProgressValue:progress];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            if (needDisplayProgressView) {
+                [showView performSelector:NSSelectorFromString(@"cy_progressViewPlayingStatusChangedWithProgressValue:") withObject:@(progress)];
             }
+#pragma clang diagnostic pop
         } error:^(NSError * _Nullable error) {
             if (completedBlock) {
                 completedBlock(nil, error, CYVideoPlayerCacheTypeLocation, url);
@@ -364,6 +400,8 @@
     else{
         //路径失效返回错误码
         [self cy_completionBlockForOperation:operation completion:completedBlock videoPath:nil error:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorFileDoesNotExist userInfo:nil] cacheType:CYVideoPlayerCacheTypeNone url:url];
+        // hide progress view.
+        [self hideProgressViewWithURL:url options:options];
         return operation;
     }
     return nil;
@@ -403,11 +441,12 @@
     dispatch_main_async_safe(^{
         if (self.showViews.count) {
             for (UIView *view in self.showViews) {
-                [view performSelector:NSSelectorFromString(@"cy_removeVideoLayerView")];
+                [view performSelector:NSSelectorFromString(@"cy_removeVideoLayerViewAndIndicatorView")];
+                [view performSelector:NSSelectorFromString(@"cy_hideActivityIndicatorView")];
+                [view performSelector:NSSelectorFromString(@"cy_hideProgressView")];
             }
             [self.showViews removeAllObjects];
         }
-        
         [[CYVideoPlayerTool sharedTool] stopPlay];
     });
 #pragma clang diagnostic pop
@@ -443,4 +482,107 @@
     }
     return YES;
 }
+#pragma mark - Private
+//是否需要显示下载进度
+- (BOOL)needDisplayDownloadingProgressViewWithDownloadingProgressValue:(CGFloat)downloadingProgress{
+    BOOL respond = self.delegate && [self.delegate respondsToSelector:@selector(videoPlayerManager:downloadingProgressDidChanged:)];
+    BOOL download = [self.delegate videoPlayerManager:self downloadingProgressDidChanged:downloadingProgress];
+    return  respond && download;
+}
+//是否需要显示播放进度
+- (BOOL)needDisplayPlayingProgressViewWithPlayingProgressValue:(CGFloat)playingProgress{
+    BOOL respond = self.delegate && [self.delegate respondsToSelector:@selector(videoPlayerManager:playingProgressDidChanged:)];
+    BOOL playing = [self.delegate videoPlayerManager:self playingProgressDidChanged:playingProgress];
+    return  respond && playing;
+}
+//隐藏所有的活动指示器和进度条
+- (void)hideAllIndicatorAndProgressViewsWithURL:(nullable NSURL *)url options:(CYVideoPlayerOptions)options{
+    [self hideActivityViewWithURL:url options:options];
+    [self hideProgressViewWithURL:url options:options];
+}
+
+
+- (void)hideActivityViewWithURL:(nullable NSURL *)url options:(CYVideoPlayerOptions)options{
+    if (options & CYVideoPlayerShowActivityIndicatorView){
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        dispatch_main_async_safe(^{
+            UIView *view = nil;
+            for (UIView *v in self.showViews) {
+                if (v.currentPlayingURL && [v.currentPlayingURL.absoluteString isEqualToString:url.absoluteString]) {
+                    view = v;
+                    break;
+                }
+            }
+            if (view) {
+                [view performSelector:NSSelectorFromString(@"cy_hideActivityIndicatorView")];
+            }
+        });
+#pragma clang diagnostic pop
+    }
+}
+
+- (void)hideProgressViewWithURL:(nullable NSURL *)url options:(CYVideoPlayerOptions)options{
+    if (![self needDisplayPlayingProgressViewWithPlayingProgressValue:0] || ![self needDisplayDownloadingProgressViewWithDownloadingProgressValue:0]) {
+        return;
+    }
+    
+    if (options & CYVideoPlayerShowProgressView){
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        dispatch_main_async_safe(^{
+            UIView *view = nil;
+            for (UIView *v in self.showViews) {
+                if (v.currentPlayingURL && [v.currentPlayingURL.absoluteString isEqualToString:url.absoluteString]) {
+                    view = v;
+                    break;
+                }
+            }
+            if (view) {
+                [view performSelector:NSSelectorFromString(@"cy_hideProgressView")];
+            }
+        });
+    }
+#pragma clang diagnostic pop
+}
+//刷新进度
+- (void)progressRefreshWithURL:(nullable NSURL *)url options:(CYVideoPlayerOptions)options receiveSize:(NSUInteger)receiveSize exceptSize:(NSUInteger)expectedSize{
+    if (![self needDisplayDownloadingProgressViewWithDownloadingProgressValue:(CGFloat)receiveSize/expectedSize]) {
+        return;
+    }
+    if (options & CYVideoPlayerShowProgressView){
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        dispatch_main_async_safe(^{
+            UIView *view = nil;
+            for (UIView *v in self.showViews) {
+                if (v.currentPlayingURL && [v.currentPlayingURL.absoluteString isEqualToString:url.absoluteString]) {
+                    view = v;
+                    break;
+                }
+            }
+            if (view) {
+                [view performSelector:NSSelectorFromString(@"cy_progressViewDownloadingStatusChangedWithProgressValue:") withObject:@((CGFloat)receiveSize/expectedSize)];
+            }
+        });
+#pragma clang diagnostic pop
+    }
+}
+//显示进度条和指示视图
+- (void)showProgressViewAndActivityIndicatorViewForView:(UIView *)view options:(CYVideoPlayerOptions)options{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    dispatch_main_async_safe(^{
+        BOOL needDisplayProgress = [self needDisplayDownloadingProgressViewWithDownloadingProgressValue:0] || [self needDisplayPlayingProgressViewWithPlayingProgressValue:0];
+        
+        if ((options & CYVideoPlayerShowProgressView) && needDisplayProgress) {
+            [view performSelector:NSSelectorFromString(@"cy_showProgressView")];
+        }
+        if ((options & CYVideoPlayerShowActivityIndicatorView)) {
+            [view performSelector:NSSelectorFromString(@"cy_showActivityIndicatorView")];
+        }
+    });
+#pragma clang diagnostic pop
+}
+
 @end

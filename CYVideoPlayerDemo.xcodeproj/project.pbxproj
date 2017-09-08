@@ -17,14 +17,6 @@
 		411A42C21F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42C11F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.m */; };
 		411A42D21F5FE6CF00C1BEBB /* CYVideoPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D11F5FE6CF00C1BEBB /* CYVideoPlayerManager.m */; };
 		411A42D51F5FE6EE00C1BEBB /* CYVideoPlayerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */; };
-		411A42D81F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */; };
-		411A42DB1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42DA1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m */; };
-		411A42E21F60F1DF00C1BEBB /* CYVideoPlayerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42E11F60F1DF00C1BEBB /* CYVideoPlayerCache.m */; };
-		411A42E51F60F4AB00C1BEBB /* CYVideoPlayerDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42E41F60F4AB00C1BEBB /* CYVideoPlayerDownloader.m */; };
-		411A42E91F61156200C1BEBB /* CYVideoPlayerCachePathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42E81F61156200C1BEBB /* CYVideoPlayerCachePathManager.m */; };
-		411A42EC1F6116C900C1BEBB /* NSURL+StripQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42EB1F6116C900C1BEBB /* NSURL+StripQuery.m */; };
-		411A42EF1F61185000C1BEBB /* CYVideoPlayerCacheConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42EE1F61185000C1BEBB /* CYVideoPlayerCacheConfig.m */; };
-		411A42F51F611B7100C1BEBB /* CYVideoPlayerDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42F41F611B7100C1BEBB /* CYVideoPlayerDownloaderOperation.m */; };
 		412482BF1F616F12003F3FD1 /* UIView+WebVideoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482BC1F616F12003F3FD1 /* UIView+WebVideoCache.m */; };
 		412482C01F616F12003F3FD1 /* UIView+WebVideoCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482BE1F616F12003F3FD1 /* UIView+WebVideoCacheOperation.m */; };
 		412482D01F617272003F3FD1 /* JPQRCodeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482C21F617272003F3FD1 /* JPQRCodeTool.m */; };
@@ -36,6 +28,16 @@
 		412482D61F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482CC1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.m */; };
 		412482D71F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.xib in Resources */ = {isa = PBXBuildFile; fileRef = 412482CD1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.xib */; };
 		412482D81F617272003F3FD1 /* UITableView+VideoPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482CF1F617272003F3FD1 /* UITableView+VideoPlay.m */; };
+		41363F491F626C1700C0B855 /* CYVideoPlayerResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F321F626C1700C0B855 /* CYVideoPlayerResourceLoader.m */; };
+		41363F4A1F626C1700C0B855 /* CYVideoPlayerDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F351F626C1700C0B855 /* CYVideoPlayerDownloader.m */; };
+		41363F4B1F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F371F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.m */; };
+		41363F4C1F626C1700C0B855 /* CYVideoPlayerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F3A1F626C1700C0B855 /* CYVideoPlayerCache.m */; };
+		41363F4D1F626C1700C0B855 /* CYVideoPlayerCacheConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F3C1F626C1700C0B855 /* CYVideoPlayerCacheConfig.m */; };
+		41363F4E1F626C1700C0B855 /* CYVideoPlayerCachePathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F3E1F626C1700C0B855 /* CYVideoPlayerCachePathManager.m */; };
+		41363F4F1F626C1700C0B855 /* NSURL+StripQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F411F626C1700C0B855 /* NSURL+StripQuery.m */; };
+		41363F511F626C1700C0B855 /* CYActivityindicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F461F626C1700C0B855 /* CYActivityindicatorView.m */; };
+		41363F521F626C1700C0B855 /* CYProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F481F626C1700C0B855 /* CYProgressView.m */; };
+		41363F551F626DA300C0B855 /* UIView+showVideoAndIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F541F626DA300C0B855 /* UIView+showVideoAndIndicator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,24 +78,8 @@
 		411A42D11F5FE6CF00C1BEBB /* CYVideoPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerManager.m; sourceTree = "<group>"; };
 		411A42D31F5FE6EE00C1BEBB /* CYVideoPlayerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerTool.h; sourceTree = "<group>"; };
 		411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerTool.m; sourceTree = "<group>"; };
-		411A42D61F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerResourceLoader.h; sourceTree = "<group>"; };
-		411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerResourceLoader.m; sourceTree = "<group>"; };
-		411A42D91F60D9F400C1BEBB /* UIView+VideoCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VideoCacheOperation.h"; sourceTree = "<group>"; };
-		411A42DA1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VideoCacheOperation.m"; sourceTree = "<group>"; };
-		411A42DC1F60F04C00C1BEBB /* CYVideoPlayerOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerOperation.h; sourceTree = "<group>"; };
-		411A42E01F60F1DF00C1BEBB /* CYVideoPlayerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerCache.h; sourceTree = "<group>"; };
-		411A42E11F60F1DF00C1BEBB /* CYVideoPlayerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerCache.m; sourceTree = "<group>"; };
-		411A42E31F60F4AB00C1BEBB /* CYVideoPlayerDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerDownloader.h; sourceTree = "<group>"; };
-		411A42E41F60F4AB00C1BEBB /* CYVideoPlayerDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerDownloader.m; sourceTree = "<group>"; };
+		411A42DC1F60F04C00C1BEBB /* CYVideoPlayerOperationProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerOperationProtocol.h; sourceTree = "<group>"; };
 		411A42E61F60FC0800C1BEBB /* CYVideoPlayerMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerMacros.h; sourceTree = "<group>"; };
-		411A42E71F61156200C1BEBB /* CYVideoPlayerCachePathManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerCachePathManager.h; sourceTree = "<group>"; };
-		411A42E81F61156200C1BEBB /* CYVideoPlayerCachePathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerCachePathManager.m; sourceTree = "<group>"; };
-		411A42EA1F6116C900C1BEBB /* NSURL+StripQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+StripQuery.h"; sourceTree = "<group>"; };
-		411A42EB1F6116C900C1BEBB /* NSURL+StripQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+StripQuery.m"; sourceTree = "<group>"; };
-		411A42ED1F61185000C1BEBB /* CYVideoPlayerCacheConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerCacheConfig.h; sourceTree = "<group>"; };
-		411A42EE1F61185000C1BEBB /* CYVideoPlayerCacheConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerCacheConfig.m; sourceTree = "<group>"; };
-		411A42F31F611B7100C1BEBB /* CYVideoPlayerDownloaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerDownloaderOperation.h; sourceTree = "<group>"; };
-		411A42F41F611B7100C1BEBB /* CYVideoPlayerDownloaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerDownloaderOperation.m; sourceTree = "<group>"; };
 		412482BB1F616F12003F3FD1 /* UIView+WebVideoCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebVideoCache.h"; sourceTree = "<group>"; };
 		412482BC1F616F12003F3FD1 /* UIView+WebVideoCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebVideoCache.m"; sourceTree = "<group>"; };
 		412482BD1F616F12003F3FD1 /* UIView+WebVideoCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebVideoCacheOperation.h"; sourceTree = "<group>"; };
@@ -113,6 +99,26 @@
 		412482CD1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JPVideoPlayerDemoVC_Setting.xib; sourceTree = "<group>"; };
 		412482CE1F617272003F3FD1 /* UITableView+VideoPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+VideoPlay.h"; sourceTree = "<group>"; };
 		412482CF1F617272003F3FD1 /* UITableView+VideoPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+VideoPlay.m"; sourceTree = "<group>"; };
+		41363F311F626C1700C0B855 /* CYVideoPlayerResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerResourceLoader.h; sourceTree = "<group>"; };
+		41363F321F626C1700C0B855 /* CYVideoPlayerResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerResourceLoader.m; sourceTree = "<group>"; };
+		41363F341F626C1700C0B855 /* CYVideoPlayerDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerDownloader.h; sourceTree = "<group>"; };
+		41363F351F626C1700C0B855 /* CYVideoPlayerDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerDownloader.m; sourceTree = "<group>"; };
+		41363F361F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerDownloaderOperation.h; sourceTree = "<group>"; };
+		41363F371F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerDownloaderOperation.m; sourceTree = "<group>"; };
+		41363F391F626C1700C0B855 /* CYVideoPlayerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerCache.h; sourceTree = "<group>"; };
+		41363F3A1F626C1700C0B855 /* CYVideoPlayerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerCache.m; sourceTree = "<group>"; };
+		41363F3B1F626C1700C0B855 /* CYVideoPlayerCacheConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerCacheConfig.h; sourceTree = "<group>"; };
+		41363F3C1F626C1700C0B855 /* CYVideoPlayerCacheConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerCacheConfig.m; sourceTree = "<group>"; };
+		41363F3D1F626C1700C0B855 /* CYVideoPlayerCachePathManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerCachePathManager.h; sourceTree = "<group>"; };
+		41363F3E1F626C1700C0B855 /* CYVideoPlayerCachePathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerCachePathManager.m; sourceTree = "<group>"; };
+		41363F401F626C1700C0B855 /* NSURL+StripQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+StripQuery.h"; sourceTree = "<group>"; };
+		41363F411F626C1700C0B855 /* NSURL+StripQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+StripQuery.m"; sourceTree = "<group>"; };
+		41363F451F626C1700C0B855 /* CYActivityindicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYActivityindicatorView.h; sourceTree = "<group>"; };
+		41363F461F626C1700C0B855 /* CYActivityindicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYActivityindicatorView.m; sourceTree = "<group>"; };
+		41363F471F626C1700C0B855 /* CYProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYProgressView.h; sourceTree = "<group>"; };
+		41363F481F626C1700C0B855 /* CYProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYProgressView.m; sourceTree = "<group>"; };
+		41363F531F626DA300C0B855 /* UIView+showVideoAndIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+showVideoAndIndicator.h"; sourceTree = "<group>"; };
+		41363F541F626DA300C0B855 /* UIView+showVideoAndIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+showVideoAndIndicator.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,30 +231,74 @@
 		411A42CF1F5FE67A00C1BEBB /* CYVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				41363F301F626C1700C0B855 /* ResourceLoader */,
+				41363F331F626C1700C0B855 /* Download */,
+				41363F381F626C1700C0B855 /* Cache */,
+				41363F3F1F626C1700C0B855 /* Category */,
+				41363F441F626C1700C0B855 /* showIndicator */,
 				411A42D01F5FE6CF00C1BEBB /* CYVideoPlayerManager.h */,
 				411A42D11F5FE6CF00C1BEBB /* CYVideoPlayerManager.m */,
 				411A42D31F5FE6EE00C1BEBB /* CYVideoPlayerTool.h */,
 				411A42D41F5FE6EE00C1BEBB /* CYVideoPlayerTool.m */,
-				411A42D61F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.h */,
-				411A42D71F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m */,
-				411A42D91F60D9F400C1BEBB /* UIView+VideoCacheOperation.h */,
-				411A42DA1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m */,
-				411A42DC1F60F04C00C1BEBB /* CYVideoPlayerOperation.h */,
-				411A42E01F60F1DF00C1BEBB /* CYVideoPlayerCache.h */,
-				411A42E11F60F1DF00C1BEBB /* CYVideoPlayerCache.m */,
-				411A42E71F61156200C1BEBB /* CYVideoPlayerCachePathManager.h */,
-				411A42E81F61156200C1BEBB /* CYVideoPlayerCachePathManager.m */,
-				411A42ED1F61185000C1BEBB /* CYVideoPlayerCacheConfig.h */,
-				411A42EE1F61185000C1BEBB /* CYVideoPlayerCacheConfig.m */,
-				411A42E31F60F4AB00C1BEBB /* CYVideoPlayerDownloader.h */,
-				411A42E41F60F4AB00C1BEBB /* CYVideoPlayerDownloader.m */,
-				411A42F31F611B7100C1BEBB /* CYVideoPlayerDownloaderOperation.h */,
-				411A42F41F611B7100C1BEBB /* CYVideoPlayerDownloaderOperation.m */,
+				411A42DC1F60F04C00C1BEBB /* CYVideoPlayerOperationProtocol.h */,
 				411A42E61F60FC0800C1BEBB /* CYVideoPlayerMacros.h */,
-				411A42EA1F6116C900C1BEBB /* NSURL+StripQuery.h */,
-				411A42EB1F6116C900C1BEBB /* NSURL+StripQuery.m */,
 			);
 			path = CYVideoPlayer;
+			sourceTree = "<group>";
+		};
+		41363F301F626C1700C0B855 /* ResourceLoader */ = {
+			isa = PBXGroup;
+			children = (
+				41363F311F626C1700C0B855 /* CYVideoPlayerResourceLoader.h */,
+				41363F321F626C1700C0B855 /* CYVideoPlayerResourceLoader.m */,
+			);
+			path = ResourceLoader;
+			sourceTree = "<group>";
+		};
+		41363F331F626C1700C0B855 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				41363F341F626C1700C0B855 /* CYVideoPlayerDownloader.h */,
+				41363F351F626C1700C0B855 /* CYVideoPlayerDownloader.m */,
+				41363F361F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.h */,
+				41363F371F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.m */,
+			);
+			path = Download;
+			sourceTree = "<group>";
+		};
+		41363F381F626C1700C0B855 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				41363F391F626C1700C0B855 /* CYVideoPlayerCache.h */,
+				41363F3A1F626C1700C0B855 /* CYVideoPlayerCache.m */,
+				41363F3B1F626C1700C0B855 /* CYVideoPlayerCacheConfig.h */,
+				41363F3C1F626C1700C0B855 /* CYVideoPlayerCacheConfig.m */,
+				41363F3D1F626C1700C0B855 /* CYVideoPlayerCachePathManager.h */,
+				41363F3E1F626C1700C0B855 /* CYVideoPlayerCachePathManager.m */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		41363F3F1F626C1700C0B855 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				41363F401F626C1700C0B855 /* NSURL+StripQuery.h */,
+				41363F411F626C1700C0B855 /* NSURL+StripQuery.m */,
+				41363F531F626DA300C0B855 /* UIView+showVideoAndIndicator.h */,
+				41363F541F626DA300C0B855 /* UIView+showVideoAndIndicator.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		41363F441F626C1700C0B855 /* showIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				41363F451F626C1700C0B855 /* CYActivityindicatorView.h */,
+				41363F461F626C1700C0B855 /* CYActivityindicatorView.m */,
+				41363F471F626C1700C0B855 /* CYProgressView.h */,
+				41363F481F626C1700C0B855 /* CYProgressView.m */,
+			);
+			path = showIndicator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,24 +438,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				411A42D21F5FE6CF00C1BEBB /* CYVideoPlayerManager.m in Sources */,
+				41363F4B1F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.m in Sources */,
 				412482D61F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.m in Sources */,
-				411A42F51F611B7100C1BEBB /* CYVideoPlayerDownloaderOperation.m in Sources */,
 				412482D41F617272003F3FD1 /* JPVideoPlayerDemoVC_push.m in Sources */,
-				411A42EC1F6116C900C1BEBB /* NSURL+StripQuery.m in Sources */,
 				412482D11F617272003F3FD1 /* JPVideoPlayerDemoCell.m in Sources */,
 				412482C01F616F12003F3FD1 /* UIView+WebVideoCacheOperation.m in Sources */,
-				411A42E51F60F4AB00C1BEBB /* CYVideoPlayerDownloader.m in Sources */,
-				411A42DB1F60D9F400C1BEBB /* UIView+VideoCacheOperation.m in Sources */,
-				411A42E21F60F1DF00C1BEBB /* CYVideoPlayerCache.m in Sources */,
-				411A42E91F61156200C1BEBB /* CYVideoPlayerCachePathManager.m in Sources */,
 				412482D31F617272003F3FD1 /* JPVideoPlayerDemoVC_home.m in Sources */,
+				41363F4D1F626C1700C0B855 /* CYVideoPlayerCacheConfig.m in Sources */,
+				41363F511F626C1700C0B855 /* CYActivityindicatorView.m in Sources */,
 				411A42D51F5FE6EE00C1BEBB /* CYVideoPlayerTool.m in Sources */,
+				41363F521F626C1700C0B855 /* CYProgressView.m in Sources */,
+				41363F4A1F626C1700C0B855 /* CYVideoPlayerDownloader.m in Sources */,
+				41363F4C1F626C1700C0B855 /* CYVideoPlayerCache.m in Sources */,
+				41363F491F626C1700C0B855 /* CYVideoPlayerResourceLoader.m in Sources */,
+				41363F4F1F626C1700C0B855 /* NSURL+StripQuery.m in Sources */,
 				412482D81F617272003F3FD1 /* UITableView+VideoPlay.m in Sources */,
-				411A42EF1F61185000C1BEBB /* CYVideoPlayerCacheConfig.m in Sources */,
 				411A42A41F5FE65600C1BEBB /* ViewController.m in Sources */,
-				411A42D81F5FF03000C1BEBB /* CYVideoPlayerResourceLoader.m in Sources */,
 				411A42A11F5FE65600C1BEBB /* AppDelegate.m in Sources */,
+				41363F4E1F626C1700C0B855 /* CYVideoPlayerCachePathManager.m in Sources */,
 				412482BF1F616F12003F3FD1 /* UIView+WebVideoCache.m in Sources */,
+				41363F551F626DA300C0B855 /* UIView+showVideoAndIndicator.m in Sources */,
 				411A429E1F5FE65600C1BEBB /* main.m in Sources */,
 				412482D01F617272003F3FD1 /* JPQRCodeTool.m in Sources */,
 			);
