@@ -1,43 +1,38 @@
 //
-//  UITableView+VideoPlay.m
-//  JPVideoPlayerDemo
+//  UITableView+PlayVideo.m
+//  CYVideoPlayerDemo
 //
-//  Created by lava on 2017/3/20.
-//  Copyright © 2017年 NewPan. All rights reserved.
+//  Created by Mr.GCY on 2017/9/11.
+//  Copyright © 2017年 Mr.GCY. All rights reserved.
 //
 
-#import "UITableView+VideoPlay.h"
-#import "JPVideoPlayerDemoCell.h"
+#import "UITableView+PlayVideo.h"
+#import "CYShortVideoCell.h"
 #import <objc/runtime.h>
 #import "UIView+VideoCache.h"
-
-
-CGFloat const JPVideoPlayerDemoNavAndStatusTotalHei = 64;
-CGFloat const JPVideoPlayerDemoTabbarHei = 49;
-@implementation UITableView (VideoPlay)
-
+CGFloat const CYVideoPlayerNavAndStatusTotalHei = 64;
+CGFloat const CYVideoPlayerTabbarHei = 49;
+@implementation UITableView (PlayVideo)
 - (void)playVideoInVisiableCells{
     
     NSArray *visiableCells = [self visibleCells];
     
     // Find first cell need play video in visiable cells.
     // 在可见cell中找到第一个有视频的cell
-    JPVideoPlayerDemoCell *videoCell = nil;
+    CYShortVideoCell *videoCell = nil;
     
-    for (JPVideoPlayerDemoCell *cell in visiableCells) {
+    for (CYShortVideoCell *cell in visiableCells) {
         if (cell.videoPath.length > 0) {
             videoCell = cell;
             break;
         }
     }
-    
     // If found, play.
     // 如果找到了, 就开始播放视频
     if (videoCell) {
         self.playingCell = videoCell;
-        
         // display status view.
-        [videoCell.videoImv cy_playVideoWithURL:[NSURL URLWithString:videoCell.videoPath]];
+        [videoCell.coverImg cy_playVideoWithURL:[NSURL URLWithString:videoCell.videoPath]];
     }
 }
 
@@ -45,13 +40,13 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
 #pragma mark - Video Play Events
 
 - (void)handleScrollStop{
-    JPVideoPlayerDemoCell *bestCell = [self findTheBestToPlayVideoCell];
+    CYShortVideoCell *bestCell = [self findTheBestToPlayVideoCell];
     
     // If the found cell is the cell playing video, this situation cannot play video again.
     // 注意, 如果正在播放的 cell 和 finnalCell 是同一个 cell, 不应该在播放.
     if (self.playingCell.hash != bestCell.hash && bestCell.hash != 0) {
         
-        [self.playingCell.videoImv cy_stopPlay];
+        [self.playingCell.coverImg cy_stopPlay];
         
         NSURL *url = [NSURL URLWithString:bestCell.videoPath];
         
@@ -59,7 +54,7 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
         // [bestCell.videoImv jp_playVideoDisplayStatusViewWithURL:url];
         
         // hide status view.
-         [bestCell.videoImv cy_playVideoWithURL:url];
+        [bestCell.coverImg cy_playVideoWithURL:url];
         
         self.playingCell = bestCell;
     }
@@ -77,27 +72,27 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
 }
 
 - (void)stopPlay{
-    [self.playingCell.videoImv cy_stopPlay];
+    [self.playingCell.coverImg cy_stopPlay];
     self.playingCell = nil;
 }
 
 
 #pragma mark - Private
 
-- (JPVideoPlayerDemoCell *)findTheBestToPlayVideoCell{
+- (CYShortVideoCell *)findTheBestToPlayVideoCell{
     
     // To find next cell need play video.
     // 找到下一个要播放的cell(最在屏幕中心的).
     
-    JPVideoPlayerDemoCell *finnalCell = nil;
+    CYShortVideoCell *finnalCell = nil;
     NSArray *visiableCells = [self visibleCells];
     CGFloat gap = MAXFLOAT;
     
     CGRect windowRect = [UIScreen mainScreen].bounds;
-    windowRect.origin.y = JPVideoPlayerDemoNavAndStatusTotalHei;
-    windowRect.size.height -= (JPVideoPlayerDemoNavAndStatusTotalHei + JPVideoPlayerDemoTabbarHei);
+    windowRect.origin.y = CYVideoPlayerNavAndStatusTotalHei;
+    windowRect.size.height -= (CYVideoPlayerNavAndStatusTotalHei + CYVideoPlayerTabbarHei);
     
-    for (JPVideoPlayerDemoCell *cell in visiableCells) {
+    for (CYShortVideoCell *cell in visiableCells) {
         
         @autoreleasepool {
             
@@ -105,11 +100,11 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
                 
                 // Find the cell cannot stop in screen center first.
                 // 优先查找滑动不可及cell.
-                if (cell.cellStyle != JPPlayUnreachCellStyleNone) {
+                if (cell.cellStyle != CYPlayUnreachCellStyleNone) {
                     
                     // Must the all area of the cell is visiable.
                     // 并且不可及cell要全部露出.
-                    if (cell.cellStyle == JPPlayUnreachCellStyleUp) {
+                    if (cell.cellStyle == CYPlayUnreachCellStyleUp) {
                         CGPoint cellLeftUpPoint = cell.frame.origin;
                         
                         // 不要在边界上.
@@ -121,7 +116,7 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
                             break;
                         }
                     }
-                    else if (cell.cellStyle == JPPlayUnreachCellStyleDown){
+                    else if (cell.cellStyle == CYPlayUnreachCellStyleDown){
                         CGPoint cellLeftUpPoint = cell.frame.origin;
                         CGFloat cellDownY = cellLeftUpPoint.y + cell.bounds.size.height;
                         CGPoint cellLeftDownPoint = CGPointMake(cellLeftUpPoint.x, cellDownY);
@@ -139,7 +134,7 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
                 }
                 else{
                     CGPoint coorCentre = [cell.superview convertPoint:cell.center toView:nil];
-                    CGFloat delta = fabs(coorCentre.y-JPVideoPlayerDemoNavAndStatusTotalHei-windowRect.size.height*0.5);
+                    CGFloat delta = fabs(coorCentre.y-CYVideoPlayerNavAndStatusTotalHei-windowRect.size.height*0.5);
                     if (delta < gap) {
                         gap = delta;
                         finnalCell = cell;
@@ -155,10 +150,10 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
 - (BOOL)playingCellIsVisiable{
     CGRect windowRect = [UIScreen mainScreen].bounds;
     // because have UINavigationBar here.
-    windowRect.origin.y = JPVideoPlayerDemoNavAndStatusTotalHei;
-    windowRect.size.height -= JPVideoPlayerDemoNavAndStatusTotalHei;
+    windowRect.origin.y = CYVideoPlayerNavAndStatusTotalHei;
+    windowRect.size.height -= CYVideoPlayerNavAndStatusTotalHei;
     
-    if (self.currentDerection==JPVideoPlayerDemoScrollDerectionUp) { // 向上滚动
+    if (self.currentDerection==CYVideoPlayerScrollDerectionUp) { // 向上滚动
         CGPoint cellLeftUpPoint = self.playingCell.frame.origin;
         CGFloat cellDownY = cellLeftUpPoint.y + self.playingCell.bounds.size.height;
         CGPoint cellLeftDownPoint = CGPointMake(cellLeftUpPoint.x, cellDownY);
@@ -169,7 +164,7 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
         BOOL isContain = CGRectContainsPoint(windowRect, coorPoint);
         return isContain;
     }
-    else if(self.currentDerection==JPVideoPlayerDemoScrollDerectionDown){ // 向下滚动
+    else if(self.currentDerection==CYVideoPlayerScrollDerectionDown){ // 向下滚动
         CGPoint cellLeftUpPoint = self.playingCell.frame.origin;
         
         // 不要在边界上.
@@ -182,11 +177,11 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
     return YES;
 }
 
-- (void)setCurrentDerection:(JPVideoPlayerDemoScrollDerection)currentDerection{
+- (void)setCurrentDerection:(CYVideoPlayerScrollDerection)currentDerection{
     objc_setAssociatedObject(self, @selector(currentDerection), @(currentDerection), OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (JPVideoPlayerDemoScrollDerection)currentDerection{
+- (CYVideoPlayerScrollDerection)currentDerection{
     return [objc_getAssociatedObject(self, _cmd) integerValue];
 }
 
@@ -207,11 +202,11 @@ CGFloat const JPVideoPlayerDemoTabbarHei = 49;
     return num;
 }
 
-- (void)setPlayingCell:(JPVideoPlayerDemoCell *)playingCell{
+- (void)setPlayingCell:(CYShortVideoCell *)playingCell{
     objc_setAssociatedObject(self, @selector(playingCell), playingCell, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (JPVideoPlayerDemoCell *)playingCell{
+- (CYShortVideoCell *)playingCell{
     return objc_getAssociatedObject(self, _cmd);
 }
 

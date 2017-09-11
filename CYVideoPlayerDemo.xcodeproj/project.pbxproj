@@ -9,21 +9,11 @@
 /* Begin PBXBuildFile section */
 		411A429E1F5FE65600C1BEBB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A429D1F5FE65600C1BEBB /* main.m */; };
 		411A42A11F5FE65600C1BEBB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42A01F5FE65600C1BEBB /* AppDelegate.m */; };
-		411A42A41F5FE65600C1BEBB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42A31F5FE65600C1BEBB /* ViewController.m */; };
 		411A42A71F5FE65600C1BEBB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 411A42A51F5FE65600C1BEBB /* Main.storyboard */; };
 		411A42A91F5FE65600C1BEBB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 411A42A81F5FE65600C1BEBB /* Assets.xcassets */; };
 		411A42AC1F5FE65600C1BEBB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 411A42AA1F5FE65600C1BEBB /* LaunchScreen.storyboard */; };
 		411A42B71F5FE65600C1BEBB /* CYVideoPlayerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42B61F5FE65600C1BEBB /* CYVideoPlayerDemoTests.m */; };
 		411A42C21F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 411A42C11F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.m */; };
-		412482D01F617272003F3FD1 /* JPQRCodeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482C21F617272003F3FD1 /* JPQRCodeTool.m */; };
-		412482D11F617272003F3FD1 /* JPVideoPlayerDemoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482C41F617272003F3FD1 /* JPVideoPlayerDemoCell.m */; };
-		412482D21F617272003F3FD1 /* JPVideoPlayerDemoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 412482C51F617272003F3FD1 /* JPVideoPlayerDemoCell.xib */; };
-		412482D31F617272003F3FD1 /* JPVideoPlayerDemoVC_home.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482C71F617272003F3FD1 /* JPVideoPlayerDemoVC_home.m */; };
-		412482D41F617272003F3FD1 /* JPVideoPlayerDemoVC_push.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482C91F617272003F3FD1 /* JPVideoPlayerDemoVC_push.m */; };
-		412482D51F617272003F3FD1 /* JPVideoPlayerDemoVC_push.xib in Resources */ = {isa = PBXBuildFile; fileRef = 412482CA1F617272003F3FD1 /* JPVideoPlayerDemoVC_push.xib */; };
-		412482D61F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482CC1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.m */; };
-		412482D71F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.xib in Resources */ = {isa = PBXBuildFile; fileRef = 412482CD1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.xib */; };
-		412482D81F617272003F3FD1 /* UITableView+VideoPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 412482CF1F617272003F3FD1 /* UITableView+VideoPlay.m */; };
 		41363F491F626C1700C0B855 /* CYVideoPlayerResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F321F626C1700C0B855 /* CYVideoPlayerResourceLoader.m */; };
 		41363F4A1F626C1700C0B855 /* CYVideoPlayerDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F351F626C1700C0B855 /* CYVideoPlayerDownloader.m */; };
 		41363F4B1F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F371F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.m */; };
@@ -38,6 +28,10 @@
 		41363F5E1F6284DA00C0B855 /* CYVideoPlayerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F5A1F6284DA00C0B855 /* CYVideoPlayerTool.m */; };
 		41363F611F62855500C0B855 /* UIView+VideoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F601F62855500C0B855 /* UIView+VideoCache.m */; };
 		41363F641F62857400C0B855 /* UIView+VideoCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F631F62857400C0B855 /* UIView+VideoCacheOperation.m */; };
+		41363F671F66238700C0B855 /* CYShortVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F661F66238700C0B855 /* CYShortVideoViewController.m */; };
+		41363F6A1F6623F300C0B855 /* UITableView+PlayVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F691F6623F300C0B855 /* UITableView+PlayVideo.m */; };
+		41363F6E1F6624BF00C0B855 /* CYShortVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 41363F6C1F6624BF00C0B855 /* CYShortVideoCell.m */; };
+		41363F6F1F6624BF00C0B855 /* CYShortVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41363F6D1F6624BF00C0B855 /* CYShortVideoCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,8 +56,6 @@
 		411A429D1F5FE65600C1BEBB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		411A429F1F5FE65600C1BEBB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		411A42A01F5FE65600C1BEBB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		411A42A21F5FE65600C1BEBB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		411A42A31F5FE65600C1BEBB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		411A42A61F5FE65600C1BEBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		411A42A81F5FE65600C1BEBB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		411A42AB1F5FE65600C1BEBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,21 +67,6 @@
 		411A42C11F5FE65600C1BEBB /* CYVideoPlayerDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerDemoUITests.m; sourceTree = "<group>"; };
 		411A42C31F5FE65600C1BEBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		411A42E61F60FC0800C1BEBB /* CYVideoPlayerMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerMacros.h; sourceTree = "<group>"; };
-		412482C11F617272003F3FD1 /* JPQRCodeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPQRCodeTool.h; sourceTree = "<group>"; };
-		412482C21F617272003F3FD1 /* JPQRCodeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPQRCodeTool.m; sourceTree = "<group>"; };
-		412482C31F617272003F3FD1 /* JPVideoPlayerDemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPVideoPlayerDemoCell.h; sourceTree = "<group>"; };
-		412482C41F617272003F3FD1 /* JPVideoPlayerDemoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPVideoPlayerDemoCell.m; sourceTree = "<group>"; };
-		412482C51F617272003F3FD1 /* JPVideoPlayerDemoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JPVideoPlayerDemoCell.xib; sourceTree = "<group>"; };
-		412482C61F617272003F3FD1 /* JPVideoPlayerDemoVC_home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPVideoPlayerDemoVC_home.h; sourceTree = "<group>"; };
-		412482C71F617272003F3FD1 /* JPVideoPlayerDemoVC_home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPVideoPlayerDemoVC_home.m; sourceTree = "<group>"; };
-		412482C81F617272003F3FD1 /* JPVideoPlayerDemoVC_push.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPVideoPlayerDemoVC_push.h; sourceTree = "<group>"; };
-		412482C91F617272003F3FD1 /* JPVideoPlayerDemoVC_push.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPVideoPlayerDemoVC_push.m; sourceTree = "<group>"; };
-		412482CA1F617272003F3FD1 /* JPVideoPlayerDemoVC_push.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JPVideoPlayerDemoVC_push.xib; sourceTree = "<group>"; };
-		412482CB1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPVideoPlayerDemoVC_Setting.h; sourceTree = "<group>"; };
-		412482CC1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPVideoPlayerDemoVC_Setting.m; sourceTree = "<group>"; };
-		412482CD1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JPVideoPlayerDemoVC_Setting.xib; sourceTree = "<group>"; };
-		412482CE1F617272003F3FD1 /* UITableView+VideoPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+VideoPlay.h"; sourceTree = "<group>"; };
-		412482CF1F617272003F3FD1 /* UITableView+VideoPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+VideoPlay.m"; sourceTree = "<group>"; };
 		41363F311F626C1700C0B855 /* CYVideoPlayerResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerResourceLoader.h; sourceTree = "<group>"; };
 		41363F321F626C1700C0B855 /* CYVideoPlayerResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYVideoPlayerResourceLoader.m; sourceTree = "<group>"; };
 		41363F341F626C1700C0B855 /* CYVideoPlayerDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYVideoPlayerDownloader.h; sourceTree = "<group>"; };
@@ -119,6 +96,13 @@
 		41363F601F62855500C0B855 /* UIView+VideoCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VideoCache.m"; sourceTree = "<group>"; };
 		41363F621F62857400C0B855 /* UIView+VideoCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VideoCacheOperation.h"; sourceTree = "<group>"; };
 		41363F631F62857400C0B855 /* UIView+VideoCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VideoCacheOperation.m"; sourceTree = "<group>"; };
+		41363F651F66238700C0B855 /* CYShortVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYShortVideoViewController.h; sourceTree = "<group>"; };
+		41363F661F66238700C0B855 /* CYShortVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYShortVideoViewController.m; sourceTree = "<group>"; };
+		41363F681F6623F300C0B855 /* UITableView+PlayVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+PlayVideo.h"; sourceTree = "<group>"; };
+		41363F691F6623F300C0B855 /* UITableView+PlayVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+PlayVideo.m"; sourceTree = "<group>"; };
+		41363F6B1F6624BF00C0B855 /* CYShortVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYShortVideoCell.h; sourceTree = "<group>"; };
+		41363F6C1F6624BF00C0B855 /* CYShortVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYShortVideoCell.m; sourceTree = "<group>"; };
+		41363F6D1F6624BF00C0B855 /* CYShortVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CYShortVideoCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,23 +156,13 @@
 				411A42CF1F5FE67A00C1BEBB /* CYVideoPlayer */,
 				411A429F1F5FE65600C1BEBB /* AppDelegate.h */,
 				411A42A01F5FE65600C1BEBB /* AppDelegate.m */,
-				411A42A21F5FE65600C1BEBB /* ViewController.h */,
-				411A42A31F5FE65600C1BEBB /* ViewController.m */,
-				412482C11F617272003F3FD1 /* JPQRCodeTool.h */,
-				412482C21F617272003F3FD1 /* JPQRCodeTool.m */,
-				412482C31F617272003F3FD1 /* JPVideoPlayerDemoCell.h */,
-				412482C41F617272003F3FD1 /* JPVideoPlayerDemoCell.m */,
-				412482C51F617272003F3FD1 /* JPVideoPlayerDemoCell.xib */,
-				412482C61F617272003F3FD1 /* JPVideoPlayerDemoVC_home.h */,
-				412482C71F617272003F3FD1 /* JPVideoPlayerDemoVC_home.m */,
-				412482C81F617272003F3FD1 /* JPVideoPlayerDemoVC_push.h */,
-				412482C91F617272003F3FD1 /* JPVideoPlayerDemoVC_push.m */,
-				412482CA1F617272003F3FD1 /* JPVideoPlayerDemoVC_push.xib */,
-				412482CB1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.h */,
-				412482CC1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.m */,
-				412482CD1F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.xib */,
-				412482CE1F617272003F3FD1 /* UITableView+VideoPlay.h */,
-				412482CF1F617272003F3FD1 /* UITableView+VideoPlay.m */,
+				41363F651F66238700C0B855 /* CYShortVideoViewController.h */,
+				41363F661F66238700C0B855 /* CYShortVideoViewController.m */,
+				41363F681F6623F300C0B855 /* UITableView+PlayVideo.h */,
+				41363F691F6623F300C0B855 /* UITableView+PlayVideo.m */,
+				41363F6B1F6624BF00C0B855 /* CYShortVideoCell.h */,
+				41363F6C1F6624BF00C0B855 /* CYShortVideoCell.m */,
+				41363F6D1F6624BF00C0B855 /* CYShortVideoCell.xib */,
 				411A42A51F5FE65600C1BEBB /* Main.storyboard */,
 				411A42A81F5FE65600C1BEBB /* Assets.xcassets */,
 				411A42AA1F5FE65600C1BEBB /* LaunchScreen.storyboard */,
@@ -424,11 +398,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				411A42AC1F5FE65600C1BEBB /* LaunchScreen.storyboard in Resources */,
-				412482D21F617272003F3FD1 /* JPVideoPlayerDemoCell.xib in Resources */,
 				411A42A91F5FE65600C1BEBB /* Assets.xcassets in Resources */,
-				412482D51F617272003F3FD1 /* JPVideoPlayerDemoVC_push.xib in Resources */,
 				411A42A71F5FE65600C1BEBB /* Main.storyboard in Resources */,
-				412482D71F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.xib in Resources */,
+				41363F6F1F6624BF00C0B855 /* CYShortVideoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,28 +426,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				41363F4B1F626C1700C0B855 /* CYVideoPlayerDownloaderOperation.m in Sources */,
-				412482D61F617272003F3FD1 /* JPVideoPlayerDemoVC_Setting.m in Sources */,
-				412482D41F617272003F3FD1 /* JPVideoPlayerDemoVC_push.m in Sources */,
-				412482D11F617272003F3FD1 /* JPVideoPlayerDemoCell.m in Sources */,
+				41363F671F66238700C0B855 /* CYShortVideoViewController.m in Sources */,
 				41363F611F62855500C0B855 /* UIView+VideoCache.m in Sources */,
-				412482D31F617272003F3FD1 /* JPVideoPlayerDemoVC_home.m in Sources */,
 				41363F4D1F626C1700C0B855 /* CYVideoPlayerCacheConfig.m in Sources */,
 				41363F511F626C1700C0B855 /* CYActivityindicatorView.m in Sources */,
 				41363F521F626C1700C0B855 /* CYProgressView.m in Sources */,
+				41363F6E1F6624BF00C0B855 /* CYShortVideoCell.m in Sources */,
 				41363F4A1F626C1700C0B855 /* CYVideoPlayerDownloader.m in Sources */,
 				41363F4C1F626C1700C0B855 /* CYVideoPlayerCache.m in Sources */,
 				41363F491F626C1700C0B855 /* CYVideoPlayerResourceLoader.m in Sources */,
 				41363F4F1F626C1700C0B855 /* NSURL+StripQuery.m in Sources */,
-				412482D81F617272003F3FD1 /* UITableView+VideoPlay.m in Sources */,
 				41363F5E1F6284DA00C0B855 /* CYVideoPlayerTool.m in Sources */,
-				411A42A41F5FE65600C1BEBB /* ViewController.m in Sources */,
 				411A42A11F5FE65600C1BEBB /* AppDelegate.m in Sources */,
 				41363F4E1F626C1700C0B855 /* CYVideoPlayerCachePathManager.m in Sources */,
 				41363F551F626DA300C0B855 /* UIView+showVideoAndIndicator.m in Sources */,
 				411A429E1F5FE65600C1BEBB /* main.m in Sources */,
 				41363F641F62857400C0B855 /* UIView+VideoCacheOperation.m in Sources */,
 				41363F5D1F6284DA00C0B855 /* CYVideoPlayerManager.m in Sources */,
-				412482D01F617272003F3FD1 /* JPQRCodeTool.m in Sources */,
+				41363F6A1F6623F300C0B855 /* UITableView+PlayVideo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
